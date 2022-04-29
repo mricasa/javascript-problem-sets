@@ -226,7 +226,7 @@
 // console.log(isLeapYear(400));       // true
 
 ///////////////////////////////////////////////////////////////////////////////
-// Multiples of 3 and 5
+// Multiples of 3 and 5 (UPDATED)
 // Write a function that computes the sum of all numbers between 1 and some other number, inclusive, that are multiples of 3 or 5. For instance, if the supplied number is 20, the result should be 98 (3 + 5 + 6 + 9 + 10 + 12 + 15 + 18 + 20).
 
 // You may assume that the number passed in is an integer greater than 1.
@@ -234,21 +234,20 @@
 
 
 // reduce doesn't seem to work
+// UPDATE: Return statement in wrong location. Check out the new code
+// at the end
+
 // let multisum = num => {
 //   let numArr = [ ...Array(num).keys()].map(i => i + 1);
-//   // console.log(numArr)
-
-//   // hey... i have no idea why reduce doesn't work with a conditional here.
 
 //   return numArr.reduce((sum, element) => {
-//     if (element === 3) {
+//     if (element % 3 ===  0) {
 //       console.log(element);
 //       return sum += element;
 //     }
-//   }
-//   , 0);
+//   }, 0);
+// };
 
-// }
 // maybe something to do with how we create the array using spread? let's keep trying...
 
 // let multisum = num => {
@@ -282,6 +281,26 @@
 // console.log(multisum(5));       // 8
 // console.log(multisum(10));      // 33
 // console.log(multisum(1000));    // 234168
+
+// UPDATED. Conditionals actually work.
+// Problem was that the return statement was within the if clause
+// The callback function expects the return statement at
+// the end of the function.
+// Below is the fixed code that works.
+
+// let multisum = num => {
+//   let numArr = [ ...Array(num).keys()].map(i => i + 1);
+
+//   return numArr.reduce((sum, element) => {
+//     if (element % 3 === 0 || element % 5 === 0) {
+//       sum += element;
+//     }
+//     return sum;
+//   }
+//   , 0);
+
+// };
+
 
 ///////////////////////////////////////////////////////////////////////////////
 
