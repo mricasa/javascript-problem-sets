@@ -58,3 +58,5 @@ switch (operation) {
 }
 
 prompt(`The result is ${output}`);
+
+console.log('testing');
