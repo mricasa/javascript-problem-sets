@@ -1,11 +1,13 @@
+/* eslint-disable no-tabs */
 let rlSync = require('readline-sync');
+console.log(typeof rlSync);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Welcome Stranger
-// Create a function that takes 2 arguments, an array and an object. The array 
-// will contain 2 or more elements that, when combined with adjoining spaces, 
-// will produce a person's name. The object will contain two keys, "title" and 
-// "occupation", and the appropriate values. Your function should return a 
+// Create a function that takes 2 arguments, an array and an object. The array
+// will contain 2 or more elements that, when combined with adjoining spaces,
+// will produce a person's name. The object will contain two keys, "title" and
+// "occupation", and the appropriate values. Your function should return a
 // greeting that uses the person's full name, and mentions the person's title.
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -28,7 +30,7 @@ let rlSync = require('readline-sync');
 
 ///////////////////////////////////////////////////////////////////////////////
 // Greeting a user
-// Write a program that will ask for user's name. The program will then greet the 
+// Write a program that will ask for user's name. The program will then greet
 // user. If the user writes "name!" then the computer yells back to the user.
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -42,7 +44,7 @@ let rlSync = require('readline-sync');
 
 ///////////////////////////////////////////////////////////////////////////////
 // Multiplying Two Numbers
-// Create a function that takes two arguments, multiplies them together, and 
+// Create a function that takes two arguments, multiplies them together, and
 // returns the result.
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -52,8 +54,8 @@ let rlSync = require('readline-sync');
 
 ///////////////////////////////////////////////////////////////////////////////
 // Squaring an Argument (Dependent on Multiplying Two Numbers)
-// Using the multiply() function from the "Multiplying Two Numbers" problem, write 
-// a function that computes the square of its argument (the square is the result 
+// Using the multiply() function from the "Multiplying Two Numbers" problem,
+// a function that computes the square of its argument (the square is the result
 // of multiplying a number by itself).
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -63,8 +65,8 @@ let rlSync = require('readline-sync');
 // console.log(square(-8) === 64); // logs true
 
 // // Further Exploration
-// // What if we wanted generalize this function to a "power to the n" type function: 
-// // cubed, to the 4th power, to the 5th, etc. How would we go about doing so while 
+// // if we wanted generalize this function to a "power to the n" type function:
+// // cubed, to the 4th power, etc. How would we go about doing so while
 // // still using the multiply() function?
 
 // let powerN = (num, exponent) => {let square = num => multiply(num, num);
@@ -92,37 +94,42 @@ let rlSync = require('readline-sync');
 // console.log(power(2, 10) === 1024); // logs true
 
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // Pseudocode lecture test examples
 ///////////////////////////////////////////////////////////////////////////////
 
-// a method that takes an array of integers, and returns a new array with every 
-// other element from the original array, starting with the first element. 
+// a method that takes an array of integers, and returns a new array with every
+// other element from the original array, starting with the first element.
 
 // Casual Pseudocode
 // Given an array of integers
 // initialize returnArray
 // Iterate over array with index
+// eslint-disable-next-line no-tabs
 // 	if the index is even, push the element at that index to the return array
-// return returnArray 
+// return returnArray
 
 // Formal pseudocode
 // Given an array of integers
 // SET returnArr
-// FOR index = 0; index < arrayInt.length; index++ 
+// FOR index = 0; index < arrayInt.length; index++
+// eslint-disable-next-line no-tabs
 // 	IF index % 2 === 0
+// eslint-disable-next-line no-tabs
 // 		returnArr << arrayInt[index]
 // 	ELSE
 // 		continue
 // return returnArr
 
-
-// - a function that determines the index of the 3rd occurrence of a given character in a string. 
-// For instance, if the given character is 'x' and the string is 'axbxcdxex', the function 
-// should return 6 (the index of the 3rd 'x'). If the given character does not occur at least 
-// 3 times, return null.
-
+/*
+- a function that determines the index of the 3rd occurrence of a given
+ character in a string.
+For instance, if the given character is 'x' and the string is
+'axbxcdxex', the function
+should return 6 (the index of the 3rd 'x'). If the given character
+does not occur at least
+3 times, return null.
+*/
 // Given string and a character
 
 // 	Transform string into array
@@ -132,16 +139,16 @@ let rlSync = require('readline-sync');
 // 			add to count
 // 		else if count == 2
 // 			return index of the character in the list
-		
+
 // 	return null
-			
-	
+
+
 // 	Formal
 // 	Given a string and a target character
-	
+
 // 		let count = 0
 // 		let strArr = string.split('')
-		
+
 // 		for char of strArr
 // 			IF char is target && count < 2
 // 				add to count
@@ -173,23 +180,25 @@ let rlSync = require('readline-sync');
 // console.log(indexOfThird('tyrranosaurus rex', 'r'));
 // console.log(indexOfThird('tyrranosaurus rex', 'v'));
 
-// - a function that takes two arrays of numbers and returns the result of 
-// merging the arrays. The elements of the first array should become the 
-// elements at the even indexes of the returned array, while the elements of 
-// the second array should become the elements at the odd indexes. For 
+// - a function that takes two arrays of numbers and returns the result of
+// merging the arrays. The elements of the first array should become the
+// elements at the even indexes of the returned array, while the elements of
+// the second array should become the elements at the odd indexes. For
 // instance: merge([1, 2, 3], [4, 5, 6]); // => [1, 4, 2, 5, 3, 6]
 
 
-// requirements:  take two arrays and merge them. the first array elements 
-//  will be the even indexes, and the second array elements will be the odd indexes
+// requirements:  take two arrays and merge them. the first array elements
+//  will be the even indexes, and the second array elements will be the odd
+//indexes
 
 // Given two arrays
 
 // initialize the result
 // take the length of 1 array (both are equal length)
 // iterating index from 0 to the length of that array - 1
-// If the iterator is even, take the first element from array1 (mutate it) and add it to the result
-// else, take the first element from array2 (mutate it) and add it to the result 
+// If the iterator is even, take the first element from array1 (mutate it)
+// and add it to the result
+// else, take the first element from array2 (mutate it) and add it to the result
 // return the result
 
 // Given two arrays
@@ -199,10 +208,12 @@ let rlSync = require('readline-sync');
 
 // for i = 0; i < endLength; i ++
 //   IF i is even
+// eslint-disable-next-line no-tabs
 //   	shift array1 and append it to the returnArr
 //   ELSE
+// eslint-disable-next-line no-tabs
 // 	shift array2 and append to returnArr
-	
+
 // return returnArr
 
 
@@ -225,9 +236,10 @@ let rlSync = require('readline-sync');
 // Arithmetic Integer
 
 
-// Write a program that prompts the user for two positive integers, and then 
-// prints the results of the following operations on those two numbers: addition, 
-// subtraction, product, quotient, remainder, and power. Do not worry about 
+// Write a program that prompts the user for two positive integers, and then
+// prints the results of the following operations on those two numbers:
+// addition,
+// subtraction, product, quotient, remainder, and power. Do not worry about
 // validating the input.
 //
 // Example
@@ -270,7 +282,7 @@ Print the results of 6 operations, 1 per line
 
 ///////////////////////////////////////////////////////////////////////////////
 /* The End Is Near But Not Here
-Write a function that returns the next to last word in the String passed 
+Write a function that returns the next to last word in the String passed
 to it as an argument.
 
 Words are any sequence of non-blank characters.
@@ -292,13 +304,15 @@ You may assume that the input String will always contain at least two words.
 
 /*
 Further Exploration
-Our solution ignored a couple of edge cases because we explicitly stated that you 
-didn't have to handle them: strings that contain just one word, and strings that 
+Our solution ignored a couple of edge cases because we explicitly stated
+that you
+didn't have to handle them: strings that contain just one word, and strings that
 contain no words.
 
-Suppose we need a function that retrieves the middle word of a phrase/sentence. 
-What edge cases need to be considered? How would you handle those edge cases without 
-ignoring them? Write a function that returns the middle word of a phrase or 
+Suppose we need a function that retrieves the middle word of a phrase/sentence.
+What edge cases need to be considered? How would you handle those edge cases
+without
+ignoring them? Write a function that returns the middle word of a phrase or
 sentence. It should handle all of the edge cases you thought of.
 
 REQUIREMENTS:
@@ -317,7 +331,8 @@ Pseudocode:
 3. Create string array out of string by splitting on spaces
 4. If string is one word return the word
 5. Otherwise, get the size of the string
-6. If the size is even, return a message saying that the string is an even number of words
+6. If the size is even, return a message saying that the string is an even
+number of words
 7. Otherwise, find the midpoint, which is length over 2, rounded down
 8. Return the element of the list at the midpoint index
 
@@ -341,8 +356,8 @@ return strArr[midpoint]
 
 // let midWord = words => {
 //   if (!words.length) return null;
-  
-//   // if (words.length === 0) return null; //// notice that this version is flexible enough
+
+//   // if (words.length === 0) return null; //// deals with wrong type
 //   //// to handle non-string values.
 
 //   let wordArr = words.split(" ");
@@ -363,15 +378,15 @@ return strArr[midpoint]
 
 ///////////////////////////////////////////////////////////////////////////////
 /* Exclusive Or
-The || operator returns a truthy value if either or both of its operands are 
+The || operator returns a truthy value if either or both of its operands are
 truthy, a falsey value if both operands are falsey. The && operator returns a
- truthy value if both of its operands are truthy, and a falsey value if 
- either operand is falsey. This works great until you need only one, but not 
+ truthy value if both of its operands are truthy, and a falsey value if
+ either operand is falsey. This works great until you need only one, but not
  both, of two conditions to be truthy: the so-called exclusive or.
 
-In this exercise, you will write a function named xor that takes 
-two arguments, and returns true if exactly one of its arguments is truthy, 
-false otherwise. Note that we are looking for a boolean result instead of a 
+In this exercise, you will write a function named xor that takes
+two arguments, and returns true if exactly one of its arguments is truthy,
+false otherwise. Note that we are looking for a boolean result instead of a
 truthy/falsy value as returned by || and &&.
 */
 ///////////////////////////////////////////////////////////////////////////////
@@ -413,9 +428,9 @@ truthy/falsy value as returned by || and &&.
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Odd Lists
-Write a function that returns an Array that contains every other element of an 
-Array that is passed in as an argument. The values in the returned list should 
-be those values that are in the 1st, 3rd, 5th, and so on elements of the 
+Write a function that returns an Array that contains every other element of an
+Array that is passed in as an argument. The values in the returned list should
+be those values that are in the 1st, 3rd, 5th, and so on elements of the
 argument Array.
 
 */
@@ -450,22 +465,22 @@ argument Array.
 
 ///////////////////////////////////////////////////////////////////////////////
 /* Convert a String to a Number!
-The parseInt() method converts a string of numeric characters (including an 
-optional plus or minus sign) to an integer. The method takes 2 arguments 
-where the first argument is the string we want to convert and the second 
-argument should always be 10 for our purposes. parseInt() and the Number() 
-method behave similarly. In this exercise, you will create a function that 
+The parseInt() method converts a string of numeric characters (including an
+optional plus or minus sign) to an integer. The method takes 2 arguments
+where the first argument is the string we want to convert and the second
+argument should always be 10 for our purposes. parseInt() and the Number()
+method behave similarly. In this exercise, you will create a function that
 does the same thing.
 
-Write a function that takes a string of digits and returns the appropriate 
+Write a function that takes a string of digits and returns the appropriate
 number as an integer. You may not use any of the methods mentioned above.
 
-For now, do not worry about leading + or - signs, nor should you worry about 
+For now, do not worry about leading + or - signs, nor should you worry about
 invalid characters; assume all characters will be numeric.
 
-You may not use any of the standard conversion methods available in 
-JavaScript, such as String() and Number(). Your function should do this the 
-old-fashioned way and calculate the result by analyzing the characters in 
+You may not use any of the standard conversion methods available in
+JavaScript, such as String() and Number(). Your function should do this the
+old-fashioned way and calculate the result by analyzing the characters in
 the string.
 
 */
@@ -474,7 +489,7 @@ the string.
 /*
 Requirements:
 Chunk string down by digits place.
-Digit index should be mapped to * 10 ^n 
+Digit index should be mapped to * 10 ^n
 Add all numbers together
 
 Maybe start with grabbing the length to understand...
@@ -500,21 +515,21 @@ charCodeAt() mapping
 = a difference of 48
 
 POWER OF 10 RELATIONSHIP
-pattern is 
+pattern is
 length = L
 iter 0 = 10 ** (L - 1)
 iter 1 = 10 ** (L - 2)
 iter 2 = 10 ** (L - 3)
 iter 3 = 10 ** (L - 4)
 
-relationship between the iteration and 10 power is -(+1) 
-
+relationship between the iteration and 10 power is -(+1)
 
 
 Pseudocode:
 
 split string into digits
-begin iteration with i starting at 0, until i is the length of the digit arr, i++
+begin iteration with i starting at 0, until i is the length of the digit arr,
+i++
 each iter, is arr[i] converted into a number (charCode - 48)
 then we multiply it by the respective power of 10 for the iteration -(+1)
 
@@ -543,20 +558,20 @@ then we multiply it by the respective power of 10 for the iteration -(+1)
 ///////////////////////////////////////////////////////////////////////////////
 /*
 Convert a String to a Signed Number!
-In the previous exercise, you developed a function that converts simple numeric 
-strings to integers. In this exercise, you're going to extend that function to 
+In the previous exercise, you developed a function that converts simple numeric
+strings to integers. In this exercise, you're going to extend that function to
 work with signed numbers.
 
-Write a function that takes a string of digits and returns the appropriate 
-number as an integer. The string may have a leading + or - sign; if the first 
-character is a +, your function should return a positive number; if it is a -, 
-your function should return a negative number. If there is no sign, return a 
+Write a function that takes a string of digits and returns the appropriate
+number as an integer. The string may have a leading + or - sign; if the first
+character is a +, your function should return a positive number; if it is a -,
+your function should return a negative number. If there is no sign, return a
 positive number.
 
 You may assume the string will always contain a valid number.
 
-You may not use any of the standard conversion methods available in JavaScript, 
-such as parseInt() and Number(). You may, however, use the stringToInteger() 
+You may not use any of the standard conversion methods available in JavaScript,
+such as parseInt() and Number(). You may, however, use the stringToInteger()
 function from the previous lesson.
 
 
@@ -586,9 +601,9 @@ function from the previous lesson.
 //   }
 //   return stringToInteger(numberStr);
 
-// } 
+// }
 
-// // ugly but functional ? 
+// // ugly but functional ?
 
 // console.log(stringToSignedInteger("4321")) //=== 4321); // logs true
 // console.log(stringToSignedInteger("-570")) //=== -570); // logs true
@@ -597,16 +612,16 @@ function from the previous lesson.
 ///////////////////////////////////////////////////////////////////////////////
 /*
 Convert a Number to a String!
-In the previous two exercises, you developed functions that convert simple 
-numeric strings to signed integers. In this exercise and the next, you're going 
+In the previous two exercises, you developed functions that convert simple
+numeric strings to signed integers. In this exercise and the next, you're going
 to reverse those functions.
 
-Write a function that converts a non-negative integer value (e.g., 0, 1, 2, 3, 
+Write a function that converts a non-negative integer value (e.g., 0, 1, 2, 3,
   and so on) to the string representation of that integer.
 
-You may not use any of the standard conversion functions available in 
-JavaScript, such as String(), Number.prototype.toString, or an expression such as 
-'' + number. Your function should do this the old-fashioned way and construct the 
+You may not use any of the standard conversion functions available in
+JavaScript, such as String(), Number.prototype.toString, or an expression such
+'' + number. Your function should do this the old-fashioned way and construct
 string by analyzing and manipulating the number.
 
 
@@ -615,14 +630,14 @@ string by analyzing and manipulating the number.
 
 
 // extracting the 10s places.... hmmmm
-// use n + 48 and then static String method fromCharCode 
+// use n + 48 and then static String method fromCharCode
 // push... or could use str method padend... which is ridiculous; might as well
 //    just use array join
 
+// This one is a stumper cuz i don't know math. We should like into it
 
 
-
-integerToString(4321);        // "4321"
-integerToString(0);           // "0"
-integerToString(5000);        // "5000"
-integerToString(1234567890);  // "1234567890"
+// integerToString(4321);        // "4321"
+// integerToString(0);           // "0"
+// integerToString(5000);        // "5000"
+// integerToString(1234567890);  // "1234567890"
