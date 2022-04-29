@@ -6,6 +6,8 @@
 // Display the result of the operation
 
 const readline = require('readline-sync');
+const msg = require('./calculator_messages.json');
+let language;
 
 function prompt(message) {
   console.log(`=> ${message}`);
@@ -15,48 +17,79 @@ function invalidNumber(number) {
   return number.trimStart() === '' || Number.isNaN(Number(number));
 }
 
-prompt('Welcome to the calculator.');
+prompt(msg.global.languageChoice);
+let languageChoice = readline.question();
 
-prompt('What is the first number?');
-let number1 = readline.question();
-
-while (invalidNumber(number1)) {
-  prompt("Hmm... that doesn't look like a valid number.");
-  number1 = readline.question();
+while (!['1', '2'].includes(languageChoice)) {
+  prompt(msg.global.inputError);
+  languageChoice = readline.question();
 }
 
-prompt('What is the second number?');
-let number2 = readline.question();
-
-while (invalidNumber(number2)) {
-  prompt("Hmm... that doesn't look like a valid number.");
-  number2 = readline.question();
-}
-
-prompt('What operation would you like to return?\n1) Add 2) Subtract 3) Multiply 4) Divide');
-let operation = readline.question();
-
-while (!['1', '2', '3', '4'].includes(operation)) {
-  prompt("Hmm... that is not a valid operation.");
-  operation = readline.question();
-}
-
-let output;
-switch (operation) {
+switch (languageChoice) {
   case '1':
-    output = Number(number1) + Number(number2);
+    language = 'en';
     break;
   case '2':
-    output = Number(number1) - Number(number2);
-    break;
-  case '3':
-    output = Number(number1) * Number(number2);
-    break;
-  case '4':
-    output = Number(number1) / Number(number2);
+    language = 'sp';
     break;
 }
 
-prompt(`The result is ${output}`);
+prompt(msg[language].welcome);
 
-console.log('testing');
+
+while (true) {
+  prompt(msg[language].first);
+  let number1 = readline.question();
+
+  while (invalidNumber(number1)) {
+    prompt(msg[language].invalidNumber);
+    number1 = readline.question();
+  }
+
+  prompt(msg[language].second);
+  let number2 = readline.question();
+
+  while (invalidNumber(number2)) {
+    prompt(msg[language].invalidNumber);
+    number2 = readline.question();
+  }
+
+  prompt(msg[language].operationChoice);
+  let operation = readline.question();
+
+  while (!['1', '2', '3', '4'].includes(operation)) {
+    prompt(msg[language].invalidOperation);
+    operation = readline.question();
+  }
+
+  let output;
+  switch (operation) {
+    case '1':
+      output = Number(number1) + Number(number2);
+      break;
+    case '2':
+      output = Number(number1) - Number(number2);
+      break;
+    case '3':
+      output = Number(number1) * Number(number2);
+      break;
+    case '4':
+      output = Number(number1) / Number(number2);
+      break;
+  }
+
+  prompt(msg[language].result + output);
+  prompt(msg[language].again);
+  let sessionChoice = readline.question().toLowerCase();
+
+  while (!['y', 'n'].includes(sessionChoice)) {
+    prompt(msg[language].invalidGeneral);
+    sessionChoice = readline.question().toLowerCase();
+  }
+
+  if (sessionChoice === 'n') {
+    prompt(msg[language].end);
+    break;
+  }
+
+}

@@ -1,0 +1,30 @@
+{
+  "global": {
+    "languageChoice": "What language would you like to use?\nEnter 1 for english or 2 for spanish.",
+    "inputError": "Incorrect response. Please try again."
+  },
+  "en": {
+    "welcome": "Welcome to the calculator.",
+    "first": "What is the first number?",
+    "second": "What is the second number?",
+    "operationChoice": "What operation would you like to calculate?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "result": "The result is ",
+    "invalidNumber": "Hm... that doesn't look like a valid number.",
+    "invalidOperation": "Hm... that is not a valid operation.",
+    "invalidGeneral": "That is not a valid response. Please try again.",
+    "again": "Would you like to perform another calculation\ny or n",
+    "end": "Thanks for using the calculator."
+    },
+  "sp": {
+    "welcome": "Buenos dias.",
+    "first": "Numero primero",
+    "second": "Secondario",
+    "operationChoice": "A message in spanish?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "result": "El result es ",
+    "invalidNumber": "Spanish invalid number.",
+    "invalidOperation": "Spanish invalid operation.",
+    "invalidGeneral": "Spansih is not a valid response. Please try again.",
+    "again": "Spanish you like to perform another calculation\ny or n",
+    "end": "spanish for using the calculator."
+  }
+}
