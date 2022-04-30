@@ -12,7 +12,7 @@
     "invalidNumber": "Hm... that doesn't look like a valid number.",
     "invalidOperation": "Hm... that is not a valid operation.",
     "invalidGeneral": "That is not a valid response. Please try again.",
-    "again": "Would you like to perform another calculation\ny or n",
+    "again": "Would you like to perform another calculation\nY or N",
     "end": "Thanks for using the calculator."
     },
   "sp": {

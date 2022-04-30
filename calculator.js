@@ -6,7 +6,7 @@
 // Display the result of the operation
 
 const readline = require('readline-sync');
-const msg = require('./calculator_messages.json');
+const MSG = require('./calculator_messages.json');
 let language;
 
 function prompt(message) {
@@ -17,11 +17,11 @@ function invalidNumber(number) {
   return number.trimStart() === '' || Number.isNaN(Number(number));
 }
 
-prompt(msg.global.languageChoice);
+prompt(MSG.global.languageChoice);
 let languageChoice = readline.question();
 
 while (!['1', '2'].includes(languageChoice)) {
-  prompt(msg.global.inputError);
+  prompt(MSG.global.inputError);
   languageChoice = readline.question();
 }
 
@@ -34,31 +34,31 @@ switch (languageChoice) {
     break;
 }
 
-prompt(msg[language].welcome);
+prompt(MSG[language].welcome);
 
 
 while (true) {
-  prompt(msg[language].first);
+  prompt(MSG[language].first);
   let number1 = readline.question();
 
   while (invalidNumber(number1)) {
-    prompt(msg[language].invalidNumber);
+    prompt(MSG[language].invalidNumber);
     number1 = readline.question();
   }
 
-  prompt(msg[language].second);
+  prompt(MSG[language].second);
   let number2 = readline.question();
 
   while (invalidNumber(number2)) {
-    prompt(msg[language].invalidNumber);
+    prompt(MSG[language].invalidNumber);
     number2 = readline.question();
   }
 
-  prompt(msg[language].operationChoice);
+  prompt(MSG[language].operationChoice);
   let operation = readline.question();
 
   while (!['1', '2', '3', '4'].includes(operation)) {
-    prompt(msg[language].invalidOperation);
+    prompt(MSG[language].invalidOperation);
     operation = readline.question();
   }
 
@@ -78,17 +78,17 @@ while (true) {
       break;
   }
 
-  prompt(msg[language].result + output);
-  prompt(msg[language].again);
+  prompt(MSG[language].result + output);
+  prompt(MSG[language].again);
   let sessionChoice = readline.question().toLowerCase();
 
   while (!['y', 'n'].includes(sessionChoice)) {
-    prompt(msg[language].invalidGeneral);
+    prompt(MSG[language].invalidGeneral);
     sessionChoice = readline.question().toLowerCase();
   }
 
   if (sessionChoice === 'n') {
-    prompt(msg[language].end);
+    prompt(MSG[language].end);
     break;
   }
 
