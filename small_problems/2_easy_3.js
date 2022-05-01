@@ -186,7 +186,62 @@ To use BigInt integers in your solution, simply append the letter n to any
 numbers you use in your solution: 1n, 1234567890123456789012345678901234567890n,
 and so on. JavaScript will take care of the rest.
 
+=============
+Pseudocode
+=============
+Requirements:
+Given a number that means the number of digits
+Calculate a fibonacci number
+track index per iteration
+- i don't think i will need to track the iteration for each.
+- we will just stop iter if the num digits === in the input
+- and grab the current length of the array
+detect the length of a fibonacci number
+the first fibonacci is 1
+
+
+The sequence:
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 ...
+
+Non-recursive model bc i'm good
+start with fibarr = [0, 1]
+0 + 1 and push it to fibarr
+continue the process. . .
+
+Given a number of digits
+
+LET fibArr = [0, 1]
+
+WHILE (fibArr.length < DIGITS)
+- fibArr.push(fibArr[length - 1] + fibArr [length - 2])
+
+return fibArr length
 
 */
 ///////////////////////////////////////////////////////////////////////////////
 
+// let findFibonacciIndexByLength = digits => {
+//   let fibArr = [0n, 1n];
+//   while (fibArr[fibArr.length - 1].toString().length < digits) {
+//     fibArr.push(fibArr[fibArr.length - 1] + fibArr[fibArr.length - 2]);
+//   }
+//   return BigInt(fibArr.length - 1);
+// };
+
+// console.log(findFibonacciIndexByLength(2n) === 7n);   // 1 1 2 3 5 8 13
+// console.log(findFibonacciIndexByLength(3n) === 12n);
+// console.log(findFibonacciIndexByLength(10n) === 45n);
+//findFibonacciIndexByLength(16n) === 74n;
+// console.log(findFibonacciIndexByLength(100n) === 476n);
+// console.log(findFibonacciIndexByLength(1000n) === 4782n);
+// console.log(findFibonacciIndexByLength(10000n) === 47847n);
+
+
+// worked but i'm getting performance issues.
+// ls example does not have that, and they also use to string and length
+// i wonder what else is different
+// ah... they actually are not creating a massive array, and so they can
+// use big n math entirely.... no that is not it. they are working with
+// big n through the program.
+// ahh.. we can actually also use big n for the program by setting the
+// intitial array values to bign values. nice
