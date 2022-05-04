@@ -76,5 +76,46 @@ Testing out try and catch statement
 
 ////////////////////////////////////////////////////////////////////////
 
-console.log(greeting);
+// console.log(greeting);
 // let greeting;
+
+////////////////////////////////////////////////////////////////////////
+
+// let foo = function(peanut = 'toast') {
+//   console.log(arguments[0]);
+//   console.log(peanut);
+// };
+
+// foo('argument1');
+
+// let myArr = new Array(3);
+// console.log( myArr.length);
+// myArr[20] = 'bull';
+// console.log( myArr.length);
+// console.log(myArr[14]);
+// myArr[15] = 'hello';
+// console.log(myArr[15]);
+
+// for (let index in myArr) {
+//   console.log(index);
+// }
+
+// myArr = [1, 10, 7, 12, 44];
+
+// for (let index in myArr) {
+//   console.log(index);
+// }
+
+// for (let value of myArr) {
+//   console.log(value);
+// }
+
+// myArr = new Array(10);
+// myArr[12] = 'moose';
+
+// for (let iter = 0; iter < myArr.length; iter++) {
+//   console.log(myArr[iter]);
+// }
+
+//
+
