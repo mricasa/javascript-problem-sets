@@ -382,4 +382,6 @@ return as a string with the value rounded to three decimal places (toFixed)
 // console.log(multiplicativeAverage([3, 5]));                   // "7.500"
 // console.log(multiplicativeAverage([2, 5, 7, 11, 13, 17]));    // "28361.667"
 
-
+/*
+** This is a comment
+*/

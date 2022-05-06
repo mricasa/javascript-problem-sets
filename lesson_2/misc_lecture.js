@@ -256,3 +256,16 @@ Testing out try and catch statement
 
 // anotherFunction();
 
+//////////
+
+let myObj = {cat: 'power'};
+
+function maybeMutate(obj) {
+  console.log(`${obj.cat} inside the function`);
+  obj = {eagle: 'wing'};
+  console.log(`${obj.eagle} after reassignment `);
+}
+
+console.log(myObj);
+maybeMutate(myObj);
+console.log(myObj);
