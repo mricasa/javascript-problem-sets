@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 // function prompt(msg) {
 //   console.log(msg);
 // }
@@ -382,6 +383,86 @@ return as a string with the value rounded to three decimal places (toFixed)
 // console.log(multiplicativeAverage([3, 5]));                   // "7.500"
 // console.log(multiplicativeAverage([2, 5, 7, 11, 13, 17]));    // "28361.667"
 
-/*
-** This is a comment
-*/
+/** Multiply Lists
+ * Write a function that takes two array arguments, each containing a list of
+ * numbers, and returns a new array that contains the product of each pair
+ * of numbers from the arguments that have the same index. You may assume that
+ * the arguments contain the same number of elements.
+ */
+
+
+// function multiplyList(arr1, arr2) {
+//   return arr1.map((num1, index) => {
+//     let num2 = arr2[index];
+//     return num1 * num2;
+//   });
+// }
+// console.log(multiplyList([3, 5, 7], [9, 10, 11]));
+
+/**List of Digits
+ * Write a function that takes one argument, a positive integer, and
+ * returns a list of the digits in the number.
+
+ */
+
+// function digitList(num) {
+//   return String(num).split("").map(numStr => Number(numStr));
+// }
+
+// console.log(digitList(12345));       // [1, 2, 3, 4, 5]
+// console.log(digitList(7));           // [7]
+// console.log(digitList(375290));      // [3, 7, 5, 2, 9, 0]
+// console.log(digitList(444));         // [4, 4, 4]
+
+/**
+ * How Many?
+Write a function that counts the number of occurrences of each
+element in a given array. Once counted, log each element
+alongside the number of occurrences. Consider the words case
+sensitive e.g. ("suv" !== "SUV").
+ */
+
+// function countOccurrences(vehiclesArr) {
+//   let counts = {};
+//   vehiclesArr.forEach(function(vehicle) {
+//     if (counts.hasOwnProperty(vehicle)) {
+//       counts[vehicle] += 1;
+//     } else {
+//       counts[vehicle] = 1;
+//     }
+//   });
+
+//   Object.keys(counts).forEach(key => {
+//     console.log(`${key} => ${counts[key]}`);
+//   });
+
+// }
+
+
+// let vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck',
+//                 'motorcycle', 'motorcycle', 'car', 'truck'];
+
+// countOccurrences(vehicles);
+
+// console output -- your output sequence may be different
+// car => 4
+// truck => 3
+// SUV => 1
+// motorcycle => 2
+
+// Array Average
+// Write a function that takes one argument, an array of integers,
+// and returns the average of all the integers in the array, rounded
+// down to the integer component of the average. The array will never
+// be empty, and the numbers will always be positive integers.
+
+// function average(arr) {
+//   return Math.floor(arr.reduce((sum, num) => {
+//     return sum + num;
+//   }, 0) / arr.length);
+// }
+
+
+// console.log(average([1, 5, 87, 45, 8, 8]));       // 25
+// console.log(average([9, 47, 23, 95, 16, 52]));    // 40
+
