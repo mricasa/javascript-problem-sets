@@ -466,3 +466,222 @@ sensitive e.g. ("suv" !== "SUV").
 // console.log(average([1, 5, 87, 45, 8, 8]));       // 25
 // console.log(average([9, 47, 23, 95, 16, 52]));    // 40
 
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * After Midnight (Part 1)
+ * The time of day can be represented as the number of minutes before or after
+ * midnight. If the number of minutes is positive, the time is after midnight.
+ * If the number of minutes is negative, the time is before midnight.
+
+Write a function that takes a time using this minute-based format and returns
+the time of day in 24 hour format (hh:mm). Your function should work with any
+integer input.
+
+You may not use javascript's Date class methods.
+
+=======
+Requirements
+=======
+
+Number of minutes after midnight and before midnight
+output string representing time in 24 hour time
+
+Conversion of minutes to hours
+
+Test case
+-3
+00:00 - 3 minutes = 23:57
+
+base 60 count?
+0... 0, 1, 2, 3, 4, 5 . . . 57, 58, 59
+1... 0, 1, 2, 3, 4, 5 . . . 57, 58, 59
+2...
+3...
+Hours: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+23, 00
+
+Minutes to hours and minutes:
+HOURS: Math.floor(Minutes / 60)
+REMAINDER MINUTES: Minutes % 60
+
+Use hours to walk the array in + or negative direction
+Use remainder minutes to (0 + remainder minutes) OR (60 - remainder minutes)
+  if minutes calc === 60, make it :00, don't affect hours
+  if minutes calc !== 60, subtract 1 from hour if counting back from midnight
+
+
+Represent hours in an array?
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+
+Start a pointer at 0. Walk forward for each hour or walk backwards for negative.
+
+Input: -3
+Hours: 0
+Sign: Before midnight
+Minutes: 3
+
+Hours calc: 0 - 0 = 00:
+Minutes calc: 60 - 3 = 57
+= 00:57
+
+Input: -1437
+Sign: before midnight
+Hours: 23 hours
+Minutes: 57 minutes
+Counting from 0 - 23 = 1.
+Is minutes 0?
+  No
+    Is subtract?
+    subtract 1 from hours count (1 - 1 = 00:)
+    60 - minutes (60 - 57 = :03)
+"Returns 00:03"
+Shall we have separate functions for before and after midnight?
+
+Past might
+Input: 3000
+Hours: 50
+Minutes: 0
+
+Hours walker:
+create iterator 1 - N
+for iterator times:
+  value = 00
+  if value == 23
+    value = 0
+  else if value == 0
+    value = 23
+  value += (NEGATIVE OR POSITIVE 1; depending on direction)
+
+Actually, we don't need it
+
+* Hours calc
+RAW_HOURS = MINUTES / 60
+THE_HOUR = RAW_HOURS % 24
+(WORKS FIND FOR AFTER MIDNIGHT)
+(IDK WTF TO DO FOR BEFORE MIDNIGHT)
+
+Before midnight
+RAW_HOURS = MINUTES / 60
+THE HOUR...
+  RAW_HOURS % 24 >>
+  24 - remainder >>
+  HOUR, then subtract 1 if minutes !== 0
+  hm
+hm i think it will work.
+ */
+///////////////////////////////////////////////////////////////////////////////
+
+// const MINUTES_PER_HOUR = 60;
+// const HOURS_PER_DAY = 24;
+
+// function timeOfDay(minutes) {
+//   let direction = Math.sign(minutes);
+//   let hour = calculateHour(minutes);
+//   let minute = calculateMinute(minutes);
+//   if (minute !== 0 && direction === -1) hour -= 1;
+// eslint-disable-next-line max-len
+//   return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
+// }
+
+// function calculateHour(minutes) {
+//   let hours;
+//   let direction = Math.sign(minutes);
+//   if (direction === 1 || direction === 0) {
+//     hours = Math.floor(minutes / MINUTES_PER_HOUR);
+//     hours %= HOURS_PER_DAY;
+//   } else if (direction === -1) {
+//     hours = Math.floor(Math.abs(minutes) / MINUTES_PER_HOUR);
+//     let remainder = hours % HOURS_PER_DAY;
+//     hours = HOURS_PER_DAY - remainder;
+//   }
+//   return hours;
+// }
+
+// function calculateMinute(minutes) {
+//   let direction = Math.sign(minutes);
+//   minutes = Math.abs(minutes);
+//   let result;
+//   if (direction === 1) {
+//     result = minutes % MINUTES_PER_HOUR;
+//   } else if (direction === -1) {
+//     result = MINUTES_PER_HOUR - (minutes % MINUTES_PER_HOUR);
+//   } else {
+//     result = 0;
+//   }
+
+//   return result;
+// }
+
+// console.log(calculateMinute(0)); //=== "00:00";
+// console.log(calculateMinute(-3)); //=== "23:57";
+// console.log(calculateMinute(35)); //=== "00:35";
+// console.log(calculateMinute(-1437)); //=== "00:03";
+// console.log(calculateMinute(3000)); //=== "02:00";
+// console.log(calculateMinute(800)); //=== "13:20";
+// console.log(calculateMinute(-4231)); //=== "01:29";
+
+// console.log(calculateHour(0)); //=== "00:00";
+// console.log(calculateHour(-3)); //=== "23:57";
+// console.log(calculateHour(35)); //=== "00:35";
+// console.log(calculateHour(-1437)); //=== "00:03";
+// console.log(calculateHour(3000)); //=== "02:00";
+// console.log(calculateHour(800)); //=== "13:20";
+// console.log(calculateHour(-4231)); //=== "01:29";
+
+// console.log(timeOfDay(0) === "00:00");
+// console.log(timeOfDay(-3) === "23:57");
+// console.log(timeOfDay(35) === "00:35");
+// console.log(timeOfDay(-1437) === "00:03");
+// console.log(timeOfDay(3000) === "02:00");
+// console.log(timeOfDay(800) === "13:20");
+// console.log(timeOfDay(-4231) === "01:29");
+
+// grinded it out, but we got it
+// ps: added constant names for magic numbers after the fact
+
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * After Midnight (Part 2)
+As seen in the previous exercise, the time of day can be represented as the
+number of minutes before or after midnight. If the number of minutes is
+positive, the time is after midnight. If the number of minutes is negative,
+the time is before midnight.
+
+Write two functions that each take a time of day in 24 hour format, and return
+the number of minutes before and after midnight, respectively. Both functions
+should return a value in the range 0..1439.
+
+You may not use javascript's Date class methods.
+
+ */
+///////////////////////////////////////////////////////////////////////////////
+
+const MINUTES_PER_HOUR = 60;
+const MINUTES_PER_DAY = 1440;
+
+function timeToNumbers(time) {
+  let [hours, minutes] = time.split(":").map(str => Number(str));
+  hours = (hours === 24) ? 0 : hours;
+  return (hours * MINUTES_PER_HOUR) + minutes;
+}
+
+function afterMidnight(time) {
+  return timeToNumbers(time);
+}
+
+function beforeMidnight(time) {
+  let minutes = timeToNumbers(time);
+  if (minutes === 0) return 0;
+  return MINUTES_PER_DAY - minutes;
+}
+
+
+console.log(afterMidnight("00:00") === 0);
+console.log(beforeMidnight("00:00") === 0);
+console.log(afterMidnight("12:34") === 754);
+console.log(beforeMidnight("12:34") === 686);
+console.log(afterMidnight("24:00") === 0);
+console.log(beforeMidnight("24:00") === 0);
+
+// Much easier!!
