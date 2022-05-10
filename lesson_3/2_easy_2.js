@@ -165,10 +165,12 @@ how to count a specific char with one line, hm.
 let statement1 = "The Flintstones Rock!";
 let statement2 = "Easy come, easy go.";
 
-// console.log(statement1.match(/t/g).length);
-// console.log(statement2.match(/t/g).length);
+console.log(statement1.match(/t/g).length); //=> 2
+console.log(statement2.match(/t/g).length); //=> null.length => TypeError
 // err... null will ruin this unfortunately
 
 
-console.log(statement1.split('').filter(char => char === 't').length);
-console.log(statement2.split('').filter(char => char === 't').length);
+console.log(statement1.split('').filter(char => char === 't').length); //=> 2
+console.log(statement2.split('').filter(char => char === 't').length); //=> 0
+// yeah it's technically 1 line
+// and that was indeed the LS answer
