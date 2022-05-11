@@ -330,12 +330,362 @@ console.log(sumOfRow(40));
 
 //
 
+// Using loops to select and transform
 
-function getMiddle(string) {
-  let midpoint = Math.ceil(string.length / 2);
-  if (string.length % 2 === 0) return string.slice(midpoint - 1 , midpoint + 1)
-  return string.slice(midpoint -1 , midpoint);
+// selection with a static for loop
+let numbers = [1, 3, 9 , 11, 1, 4, 1];
+let ones = [];
+for (let counter = 0; counter < numbers.length; counter++) {
+  if (numbers[counter] === 1) ones.push(numbers[counter]);
+}
+console.log(ones);
+
+// selection with filter
+
+let onesFilter = numbers.filter(num => num === 1);
+console.log(onesFilter);
+
+// transformation with a basic for loop. mutating.
+
+let singularToPlurals = ['dog', 'cat', 'beard', 'coffee'];
+console.log(singularToPlurals);
+
+for (let counter = 0; counter < singularToPlurals.length; counter++) {
+  let word = singularToPlurals[counter];
+  singularToPlurals[counter] = word + "s";
 }
 
-console.log(getMiddle('test'));
-console.log(getMiddle('testing'));
+console.log(singularToPlurals);
+
+// select vowels
+
+function returnVowels(string) {
+  let vowels = ""
+  for (counter = 0; counter < string.length; counter++) {
+    let character = string[counter];
+    if ('aeiouAEIOU'.includes(character)) {
+      vowels += (character);
+    }
+  }
+  return vowels;
+}
+
+
+let sentenceCloud = 'I wandered lonely as a cloud'
+console.log(returnVowels("happy birthday"));
+console.log(returnVowels(sentenceCloud));
+console.log(returnVowels(sentenceCloud).length);
+
+
+//Let's look at an example with objects. In this example, we want to select the key-value pairs where the value is 'Fruit'.
+
+let produce = {
+  apple: 'Fruit',
+  carrot: 'Vegetable',
+  pear: 'Fruit',
+  broccoli: 'Vegetable'
+};
+
+
+// returns a new hash
+
+function selectFruit(foodHash) {
+  let selection = {};
+  let keys = Object.keys(foodHash);
+
+  for (let counter = 0; counter < keys.length; counter++) {
+
+    let currentKey = keys[counter];
+
+    if (foodHash[currentKey] === 'Fruit') {
+      selection[currentKey] = 'Fruit';
+    }
+  }
+  return selection;
+}
+
+console.log(selectFruit(produce)); // => { apple: 'Fruit', pear: 'Fruit' }
+
+// transformations. below, the function multiplies each element in an array by 2
+
+function doubleNumbers(numbers) {
+  let doubled = [];
+  
+  for (let count = 0; count < numbers.length; count++) {
+    doubled.push(numbers[count] * 2)
+  }
+  return doubled;
+};
+
+let myNumbers = [1, 4, 3, 7, 2, 6];
+console.log(doubleNumbers(myNumbers));
+
+// and mutating
+
+function doubleNumbersInPlace(numbers) {
+  for (let count = 0; count < numbers.length; count++) {
+    numbers[count] *= 2;
+  }
+}
+console.log(myNumbers, 'variable before mutation');
+doubleNumbersInPlace(myNumbers);
+console.log(myNumbers, 'variable after mutation');
+
+
+function doubleOdds(numbers) {
+  let counter = 0;
+  let result = [];
+  while (counter < numbers.length) {
+    let currentValue = numbers[counter];
+    if (currentValue % 2 === 1) {
+      result.push(currentValue * 2);
+    } else {
+      result.push(currentValue);
+    }
+    counter += 1;
+  }
+  return result;
+}
+
+myNumbers = [1, 4, 3, 7, 2, 6];
+console.log(doubleOdds(myNumbers), 'double odds');
+
+function updateOddValues(numbers) {
+  let counter = 0;
+  while (counter < numbers.length) {
+    let currentValue = numbers[counter];
+    if (currentValue % 2 === 1) {
+      numbers[counter] *= 2;
+    }
+    counter += 1;
+  }
+}
+
+updateOddValues(myNumbers);
+console.log(myNumbers);
+
+// odd indices transformation
+
+myNumbers = [1, 4, 3, 7, 2, 6];
+
+
+function doubleOddIndices(numbers) {
+  let counter = 0;
+  let result = [];
+  while (counter < numbers.length) {
+    (counter % 2 === 1) ? result.push(numbers[counter] * 2) : result.push(numbers[counter]);
+    counter += 1;
+  }
+  return result;
+}
+
+console.log(doubleOddIndices(myNumbers));
+
+// Recall earlier we wrote a selectFruit function that selected fruits out of the produceList object of fruits and vegetables. Suppose we wish to select generic produce types; we want to be able to specify whether we're interested in selecting fruits or vegetables or some other kind of produce, entirely. Here's how we could build such a function:
+
+function selectType(produceList, selectionCriterion) {
+  let keys = Object.keys(produceList);
+  let result = {};
+  for (let counter = 0; counter < keys.length; counter++) {
+    let currentKey = keys[counter];
+    let currentValue = produceList[currentKey];
+
+    if (currentValue === selectionCriterion) {
+      result[currentKey] = currentValue;
+    }
+  }
+  return result;
+}
+
+produce = {
+  apple: 'Fruit',
+  carrot: 'Vegetable',
+  pear: 'Fruit',
+  broccoli: 'Vegetable'
+};
+
+console.log(selectType(produce, 'Vegetable'));
+console.log(selectType(produce, 'Fruit'));
+console.log(selectType(produce, 'Humans'));
+
+
+function multiplyNumbers(numbers, multiplier) {
+  let result = [];
+  let counter = 0;
+  while (counter < numbers.length) {
+    let currentValue = numbers[counter];
+    result.push(currentValue * multiplier);
+    counter += 1;
+  }
+  return result;
+}
+myNumbers = [1, 4, 3, 7, 2, 6];
+console.log(multiplyNumbers(myNumbers, 10));
+
+// trying mutating
+function updateProductOf(numbers, multiplier) {
+  for (let counter = 0; counter < numbers.length; counter++) {
+    let currentValue = numbers[counter];
+    numbers[counter] = currentValue * multiplier;
+  }
+}
+
+console.log(myNumbers, 'before transformation');
+updateProductOf(myNumbers, 5);
+console.log(myNumbers, 'after transformation');
+
+
+
+// Array Methods
+numbers = [1, 2, 3];
+counter = 0;
+
+while (counter < numbers.length) {
+  console.log(numbers[counter]);
+  counter++;
+}
+
+[1, 2, 3].forEach(num => console.log(num));
+
+"chef's choice".split("").forEach(char => console.log(char));
+
+// forEach with Objects
+
+produce = {
+  apple: 'Fruit',
+  carrot: 'Vegetable',
+  pear: 'Fruit',
+  broccoli: 'Vegetable'
+};
+
+Object.values(produce).forEach(value => console.log(value));
+
+let produceKeys = Object.keys(produce);
+produceKeys.forEach(value => console.log(value));
+
+let produceArr = Object.entries(produce);
+produceArr.forEach(function(entry) {
+  let [key, value] = entry;
+  console.log(key + " is a " + value);
+});
+
+let forEachResult = produceArr.forEach(function(entry) {
+  let [key, value] = entry;
+  console.log(key + " is a " + value);
+});
+
+console.log(forEachResult);
+
+// filter
+
+numbers = [1, 2, 3];
+
+function selectOdds(numbers) {
+  let result = [];
+  for (let counter = 0; counter < numbers.length; counter++) {
+    let number = numbers[counter];
+    if (number % 2 === 1) result.push(number);
+  }
+  return result;
+}
+
+console.log(selectOdds(numbers));
+
+function filterOdds(numbers) {
+  return numbers.filter(num => num % 2 === 1);
+}
+
+console.log(filterOdds(numbers), 'using filter');
+
+
+// using filter with an object to select the key value pairs that are vegetables
+
+produce = {
+  apple: 'Fruit',
+  carrot: 'Vegetable',
+  pear: 'Fruit',
+  broccoli: 'Vegetable'
+};
+
+console.log(Object.entries(produce).filter(pair => {
+  let value = pair[1];
+  return value === 'Vegetable';
+}));
+
+// maybe we would have wanted the result to be an object.. LS says we can use forEach
+
+let filteredProduce = {};
+Object.entries(produce).filter(pair => {
+  let value = pair[1];
+  return value === 'Vegetable';
+}).forEach(entry => {
+  let [key, value] = entry;
+  filteredProduce[key] = value;
+});
+
+console.log(filteredProduce);
+
+// Okay, that works, but it's complicated logic. Can we simplify it? Let's try using forEach by itself without using filter at all:
+
+filteredProduce = {};
+Object.entries(produce).forEach(pair => {
+  let [key, value] = pair;
+  if (value === 'Vegetable') {
+    filteredProduce[key] = value;
+  }
+})
+
+console.log(filteredProduce, 'using forEach with condtional');
+
+
+// I think I like this one best.
+let filteredAndConstructed = Object.fromEntries((Object.entries(produce).filter(pair => {
+  let value = pair[1];
+  return value === 'Vegetable';
+})));
+
+console.log(filteredAndConstructed);
+
+
+// filter and map with strings
+// For instance, suppose we want to select all of the vowels in a string and get a new string that contains all of those vowels, and nothing else. We can use split, filter, and join like so:
+
+const VOWELS = "aeiouAEIOU";
+let myString = 'The baby ducks at the pond love to eat bread.';
+
+console.log(myString.split("").filter(char => {
+  return VOWELS.includes(char);
+}).join(""));
+
+// can also use this technique with map.  Let's duplicate every character in a string and return the result
+
+console.log(myString.split('')
+                    .map(char => char + char)
+                    .join(''));
+
+
+let mixedArray = [1, 30, 10, 3, 'cat', 'birdhouse', 55];
+
+console.log(mixedArray.some(element => typeof element === 'string'));
+console.log(mixedArray.some(element => typeof element === 'object'));
+console.log(mixedArray.some(element => Array.isArray(element)));
+console.log(mixedArray.some(element => Object.is(element, 55)));
+
+let animals = { a: 'ant', b: 'bear', c: 'cat' };
+console.log(Object.values(animals).some(value => {
+  console.log(value);
+  return value.length === 3;
+}));
+
+
+
+let areTheyArrays = Object.entries(mixedArray).every(arg => Array.isArray(arg));
+console.log(`Are they arrays? ${areTheyArrays}`);
+
+let areValuesStrings = Object.values(mixedArray).every(val => typeof val === 'string');
+console.log(areValuesStrings);
+
+numbers = [1, 2, 3, 4, 5];
+let areValuesNumbers = Object.values(numbers).every(val => typeof val === 'number');
+console.log(areValuesNumbers);
+
