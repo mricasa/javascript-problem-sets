@@ -490,6 +490,7 @@ console.log(palindromes('knitting cassettes'));
 // returns
 // [ "nittin", "itti", "tt", "ss", "settes", "ette", "tt" ]
 
+lineBreak();
 ///////////////////////////////////////////////////////////////////////////////
 // Sum of Sums
 // Write a function that takes an array of numbers and returns the sum of the
@@ -533,9 +534,7 @@ console.log(palindromes('knitting cassettes'));
  * For the length of the array, we will create leading sums
  *  - For the 0th iteration, the sum is the first number, itself. add it to
  *    the result variable
- *  - Each successive iteration will be the first number + the elements at the
- *    respective iteration indices. Add each sum to the result variable
- *  End once all elements are processed
+ *  - Each successive iteration will be the first ///////////////////////////////////////////////////////////////////////////////
  * Return the result variable
  */
 ///////////////////////////////////////////////////////////////////////////////
@@ -579,4 +578,195 @@ console.log(palindromes('knitting cassettes'));
 
 // In the example below, we want to buy 3 apples, 1 orange, and 2 bananas. Thus,
 // we return an array that contains 3 apples, 1 orange, and 2 bananas.
+
+/**
+ * Input: Two dimensional array
+ * Output: Single dimension array
+ *
+ * Explicit requirements:
+ *  Number of fruit appearances in the output are based on the quantity
+ *    specified in the input
+ *  output elements are strings
+ *  Output is a single dimension array
+ *
+ * Implicit requirements:
+ *  Ordering of elements in the array is in the same order as their
+ *    appearance in the input
+ *  There are no empty arrays, empty strings
+ *  The quantities will never be 0
+ *
+ * DC +A
+ * ['apple', 3], ['orange', 1]
+ * -> ['apple', 'apple', 'apple', 'orange']
+ *
+ * Given a two-dimensional array
+ * iterate over the array with reduce, declare the accumulator and
+ *  initialize it to an empty array
+ * In each iteration,
+ *  Declare times to the number of the subarray
+ *  Declare string to the string of the subarray
+ *  Merge the accumulator with the # instances (times) of the string
+ * END when we are done with the subarrays
+ * Return the return value of reduce
+ */
 ///////////////////////////////////////////////////////////////////////////////
+
+
+function buyFruit(groceryList) {
+  return groceryList.reduce((result, subarr) => {
+    let [item, times] = subarr;
+    return result.concat(Array(times).fill(item));
+  }, []);
+}
+console.log(buyFruit([['apple', 3], ['orange', 1], ['banana', 2]]));
+
+
+lineBreak();
+///////////////////////////////////////////////////////////////////////////////
+// Inventory Item Transactions
+// Write a function that takes two arguments, an inventory item ID and a list
+// of transactions, and returns an array containing only the transactions for
+// the specified inventory item.
+
+/**
+ * Input: Number, Array of objects
+ * Output: Array of objects
+ *
+ * Explicit requirements
+ *    Number corresponds to the id property of the object
+ *    Return array should be in the same structure as the input
+ *    Return array should contain only the objects with the id property
+ *     matching the input id
+ *    All objects should be returned as is
+ *
+ * Implicit requirements
+ *    We return a new array
+ *    An argument will not be left out
+ *    Input array will always have object as its elements
+ *    id will always be a number, never a string
+ *
+ * DC + A
+ * (array containing objects)
+ * [
+ * { id: 101, movement: 'in',  quantity:  5 },
+ * { id: 102, movement: 'out', quantity: 17 },
+ * { id: 101, movement: 'in',  quantity: 12 }
+ * ] ->
+ *
+ * [
+ * { id: 101, movement: 'in',  quantity:  5 },
+ * { id: 101, movement: 'in',  quantity: 12 }
+ * ]
+ *
+ * Given a number (id) and an array
+ * intiialize the result array
+ * Move through the list, working at the object level
+ * if the object property id is equal to id
+ *    - add the current object to the result array
+ * end
+ */
+///////////////////////////////////////////////////////////////////////////////
+
+
+// function transactionsFor(queryID, transactions) {
+//   let result = [];
+//   transactions.forEach((entry) => {
+//     if (entry.id === queryID) {
+//       result.push(entry);
+//     }
+//   });
+//   return result;
+// }
+
+
+// Can we figure it out using filter? Yup no problem.
+function transactionsFor(queryID, transactions) {
+  return transactions.filter(entry => entry.id === queryID);
+}
+
+let transactions = [
+  { id: 101, movement: 'in',  quantity:  5 },
+  { id: 105, movement: 'in',  quantity: 10 },
+  { id: 102, movement: 'out', quantity: 17 },
+  { id: 101, movement: 'in',  quantity: 12 },
+  { id: 103, movement: 'out', quantity: 20 },
+  { id: 102, movement: 'out', quantity: 15 },
+  { id: 105, movement: 'in',  quantity: 25 },
+  { id: 101, movement: 'out', quantity: 18 },
+  { id: 102, movement: 'in',  quantity: 22 },
+  { id: 103, movement: 'out', quantity: 15 }, ];
+
+console.log(transactionsFor(101, transactions));
+// returns
+// [ { id: 101, movement: "in",  quantity:  5 },
+//   { id: 101, movement: "in",  quantity: 12 },
+//   { id: 101, movement: "out", quantity: 18 }, ]
+
+///////////////////////////////////////////////////////////////////////////////
+// Inventory Item Availability
+// Building on the previous exercise, write a function that returns true or
+// false based on whether or not an inventory item is available. As before,
+// the function takes two arguments: an inventory item and a list of
+// transactions. The function should return true only if the sum of the quantity
+// values of the item's transactions is greater than zero. Notice that there is
+// a movement property in each transaction object. A movement value of 'out'
+// will decrease the item's quantity.
+
+// You may (and should) use the transactionsFor function from the previous
+// exercise.
+
+/**
+ * Input: Number, array of objects
+ * Output: boolean
+ *
+ * Explicit Requirements:
+ * Returns true or false depending on item availability
+ * Item availability is sum of the quantity values of the is greater than 0
+ * Movements in ADD to the quantity
+ * Movements OUT decrease the quantity
+ *
+ * Given an id and transactions
+ * Filter the list down by id first using transactionsFor
+ * Declare quantity and set it to 0
+ * Per object entry,
+ * If movement is in, add quant
+ * If movement is out, remove quant
+ * return quantity
+ */
+///////////////////////////////////////////////////////////////////////////////
+
+function isItemAvailable(idQuery, transactions) {
+  let transactionsFilter = transactionsFor(idQuery, transactions);
+  let quantity = transactionsFilter.reduce((acc, entry) => {
+    if (entry.movement === 'in') {
+      return acc + entry.quantity;
+    } else {
+      return acc - entry.quantity;
+    }
+  }, 0);
+  return (quantity > 0);
+}
+
+// solution was identical to LS, except you first declared the filtered
+// data structure
+
+console.log(isItemAvailable(101, transactions));     // false
+console.log(isItemAvailable(103, transactions));     // false
+console.log(isItemAvailable(105, transactions));     // true
+
+///////////////////////////////////////////////////////////////////////////////
+
+// quiz notes
+
+/**
+ * Input: Number
+ * Output: Array
+ *
+ * Explicit requirements:
+ *    Result is an array of numbers
+ *    Elements of the result are positive integers that are less than than the
+ *      number
+ *    lessThan(5) -> [1, 2, 3, 4]
+ *    lessThan(1) -> []
+ *
+ */
