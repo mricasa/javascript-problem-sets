@@ -1,0 +1,61 @@
+/* eslint-disable indent */
+
+function isANumber(word) {
+  // eslint-disable-next-line no-self-compare
+  return (Number(word) === Number(word)); // NaN is not equal to NaN
+}
+
+
+let stack = [];
+let register = 0;
+
+let operation = {
+  PUSH: function() {
+    stack.push(register);
+  },
+  POP: function() { // I don't like this one. Too much going on. Could probably
+                    // Define another pop function apart from this one
+                    // that would house the error
+    if (stack.length === 0) {
+      console.log('Error: stack is empty');
+    } else {
+      register = stack.pop();
+    }
+    return register;
+  },
+  PRINT: function() {
+    console.log(register);
+  },
+  ADD: function() {
+    register += operation.POP();
+  },
+  SUB: function() {
+    register -= operation.POP();
+  },
+  MULT: function() {
+    register *= operation.POP();
+  },
+  DIV: function() {
+    register = Math.floor(register / operation.POP());
+  },
+  REMAINDER: function() {
+    register %= operation.POP();
+  }
+};
+
+
+function minilang(string) {
+  let commands = string.split(" ");
+  commands.forEach(token => {
+    if (isANumber(token)) {
+      register = Number(token);
+    } else {
+      try {
+        operation[token]();
+      } catch {
+        console.error(`Error: ${token} is not a valid operation.`);
+      }
+    }
+  });
+}
+

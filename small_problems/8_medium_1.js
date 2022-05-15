@@ -1,3 +1,5 @@
+/* eslint-disable id-length */
+/* eslint-disable max-len */
 function lineBreak() {
   console.log('\n///////////////////////////////\n');
 }
@@ -145,6 +147,7 @@ lineBreak();
  *
  */
 
+// eslint-disable-next-line no-unused-vars
 function rotateRightmostDigits(number, digits) {
   let numArray = number.toString().split("");
   let rightSide = rotateArray(numArray.splice(-digits));
@@ -257,3 +260,368 @@ function rotateRightmostDigits(number, digits) {
 // console.log(maxRotation(8703529146));      // 7321609845
 
 // lineBreak();
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Stack Machine Interpretation
+// Explanation is pretty dense. Visit the webpage for the description
+// https://launchschool.com/exercises/026e99f0
+
+
+/**
+ * Rules
+ * =====
+ * GENERAL DETAILS
+ * register: the current value. not part of the stack.
+ * stack: stack of values. values are pushed and popped to the stack.
+ * To use a value, it is popped from the stack, and then used in the
+ * operation
+ * Results of operations are stored back in the register
+ * (does not seem to be any action that flushes the register)
+ *
+ * SPECIFIC REQUIREMENTS
+ * All operations are integer operations
+ * Programs will be supplied via string argument
+ * May assume all arguments are valid
+ * Initial values of the stack is [], register is 0
+ *
+ * REQUIRED OPERATIONS or TOKENS
+ * n: Place a value, n, in the register. Do not modify stack
+ * PUSH: Push a register value onto the stack. Leave the value in register.
+ * ADD: Pop a value from the stack and add it to the register value, storing
+ *    the result in the register.
+ * SUB:  Pop a vlaue from the stack and subtract it from the register value,
+ *    storing the result in the register
+ * MULT: Pop a value from the stack and multiply it by the register value,
+ *    storeing the result in the register
+ * DIV: Pop a value from the stack and divide the register value, storing the
+ *    integer result back in teh register
+ * REMAINDER: Pop a value from the stack and divide the register value by the
+ *    stroing the integer remainder of the division back in the register
+ * POP: remove the topmost item from the stack and place in the register
+ * PRINT: Print the register value.
+ */
+/*
+
+MULT Example
+Stack: [3, 6, 4]
+Register: 7
+
+Operation? MULT
+
+Stack: [3, 6]
+7 * 4
+Register: 28
+
+DC + A
+TOKENS as OBJECTS PROPERTIES.
+
+declare a stack initialize to an empty list
+declare a register initialize to 0
+
+STRING INTERPRETER
+Split input string into an array of words
+transform everything in to all caps
+Iterate over the words
+  If the word isANumber
+    reassign the REGISTER to that value (extract this?)
+  ELSE (assuming all valid inputs)
+    use the token to execute the function call for that operation
+END after the entire string is processed
+--
+
+FUNCTION: toRegister(N)
+  assigns register to number n
+
+FUNCTION: add (similar for all mathematical operations)
+  declare the operand and assign it to POP
+  Register value = Register value + operand
+
+FUNCTION: print
+  log the value of the register
+
+FUNCTION PUSH
+  push the register value onto the stack.
+  leave value in register
+
+FUNCTION POP
+  remove topmost item from the stack and
+  PLACE in the register
+
+FUNCTION: isANumber (predicate)
+  if the string number is that number as a number, it's a number
+
+
+  Further Exploration
+Refactor the minilang function to include some error handling. In particular,
+the function should detect and report empty stack conditions (trying to
+use a value from the stack when there are no values), and invalid
+tokens in the program. Ideally, the function should return an error
+message if an error occurs, or undefined if the program runs successfully.
+*/
+///////////////////////////////////////////////////////////////////////////////
+
+function isANumber(word) {
+  // eslint-disable-next-line no-self-compare
+  return (Number(word) === Number(word)); // NaN is not equal to NaN
+}
+
+
+let stack = [];
+let register = 0;
+
+let operation = {
+  PUSH: function() {
+    stack.push(register);
+  },
+  POP: function() {
+    register = stack.pop();
+  },
+  PRINT: function() {
+    console.log(register);
+  },
+  ADD: function() {
+    register += stack.pop();
+  },
+  SUB: function() {
+    register -= stack.pop();
+  },
+  MULT: function() {
+    register *= stack.pop();
+  },
+  DIV: function() {
+    register = Math.floor(register / stack.pop());
+  },
+  REMAINDER: function() {
+    register %= stack.pop();
+  }
+};
+
+
+function minilang(string) {
+  let commands = string.split(" ");
+  commands.forEach(token => {
+    if (isANumber(token)) {
+      register = Number(token);
+    } else {
+      operation[token]();
+    }
+  });
+
+}
+// minilang('PRINT');
+// minilang('5 PUSH 3 MULT PRINT');
+// minilang('5 PRINT PUSH 3 PRINT ADD PRINT');
+// minilang('5 PUSH POP PRINT');
+// minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT');
+// minilang('3 PUSH PUSH 7 DIV MULT PRINT');
+// minilang('4 PUSH PUSH 7 REMAINDER MULT PRINT');
+// minilang('-3 PUSH 5 SUB PRINT');
+minilang('6 PUSH');
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Word to Digit
+// Write a function that takes a sentence string as an argument and returns that
+// string with every occurrence of a "number word" — 'zero', 'one', 'two',
+// 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' — converted to
+// its corresponding digit character.
+
+/**
+ * Input: String
+ * Output: String
+ *
+ * Convert occurrences of number words to corresponding digits
+ *
+ * Implicit assumptions:
+ * input will always be a string
+ * number word will not occur near punctuation
+ *
+ * DC + A
+ *
+ * Given a string
+ * Create simple object numWords with number words mapped to numbers
+ * Declare wordsArr and initialize it to the string split into words
+ * Iterate over the words
+ *    Test whether each word is a property of the numWords object
+ *       If yes,
+ *         Change the word into the number
+ *       Otherwise
+ *         leave it alone
+ *    Move onto the next iteration until finished.
+ */
+// Further exploration: Can you refactor the function so that it does not use a
+// loop?
+// ..... I dont think i will be able to do this until i read the regex book.
+
+const NUM_WORDS = {
+  zero: '0',
+  one: '1',
+  two: '2',
+  three: '3',
+  four: '4',
+  five: '5',
+  six: '6',
+  seven: '7',
+  eight: '8',
+  nine: '9',
+  ten: '10'
+};
+
+function wordToDigit(words) {
+  let wordArr = words.split(" ");
+  return wordArr.map(word => {
+    if (Object.keys(NUM_WORDS).includes(word)) {
+      return NUM_WORDS[word];
+    } else {
+      return word;
+    }
+  }).join(" ");
+}
+console.log(wordToDigit('Please call me at five five five one two three four. Thanks.'));
+// "Please call me at 5 5 5 1 2 3 4. Thanks."
+
+///////////////////////////////////////////////////////////////////////////////
+// Fibonacci Numbers (Recursion)
+// Write a recursive function that computes the nth Fibonacci number, where
+// nth is an argument passed to the function.
+
+// DC + A
+/*
+F(1) = 1
+F(2) = 1
+F(n) = F(n - 1) + F(n - 2) where n > 2
+
+F(3) = F(2) + F(1)
+F(3) = 1 + 1 = 3
+
+F(4) = F(4 - 1) + F(4 - 2)
+  F(3) = 2
+  F(2) = 1
+  F(4) = 3
+
+Base condition is if n is 2 or 1, return 1
+
+Alorithm
+
+Given a number
+If that number is less than or equal to 2
+  return 1
+Else
+  return Fib(that number - 1) + Fib(that number - 2)
+
+*/
+///////////////////////////////////////////////////////////////////////////////
+// I was studying this using some other curriculum, so this is easy.
+// not sure if I could get it otherwise.
+
+// function fibonacci(n) {
+//   if (n <= 2) return 1;
+//   return fibonacci(n - 1) + fibonacci(n - 2);
+// }
+
+// console.log(fibonacci(1));       // 1
+// console.log(fibonacci(2));       // 1
+// console.log(fibonacci(3));       // 2
+// console.log(fibonacci(4));       // 3
+// console.log(fibonacci(5));       // 5
+// console.log(fibonacci(12));      // 144
+// console.log(fibonacci(20));      // 6765
+
+///////////////////////////////////////////////////////////////////////////////
+/*
+Fibonacci Numbers (Procedural)
+In the previous exercise, we developed a recursive solution for computing
+the nth Fibonacci number. In a language that is not optimized for
+recursion, some (but not all) recursive functions can be extremely
+slow and may require massive quantities of memory and/or stack space.
+If you tested for bigger nth numbers, you might have noticed that
+getting the 50th fibonacci number already takes a significant amount of
+time.
+
+Fortunately, every recursive function can be rewritten as a
+non-recursive (or procedural) function.
+
+Rewrite your recursive fibonacci function so that it computes its
+results without using recursion.
+
+1, 1, 2, 3
+
+*/
+///////////////////////////////////////////////////////////////////////////////
+// function fibonacci(number) {
+//   let resultArr = [1, 1];
+//   let position = 3;
+//   while (position <= number) {
+//     let firstTerm = resultArr[resultArr.length - 1];
+//     let secondTerm = resultArr[resultArr.length - 2];
+//     resultArr.push(firstTerm + secondTerm);
+//     position++;
+//   }
+//   return resultArr.pop();
+// }
+
+// // LS solution.
+// // not pushing to an array, but dynamically updating the elements of the
+// // array.
+
+// // function fibonacci(number) {
+// //   let previousTwo = [1, 1];
+// //   for (counter = 3; counter <= number; counter++) {
+// //     previousTwo = [previousTwo[1], previousTwo[0] + previousTwo[1]];
+// //   }
+// //   return previousTwo[1];
+
+// // }
+
+// console.log(fibonacci(1));       // 1
+// console.log(fibonacci(2));       // 1
+// console.log(fibonacci(3));       // 2
+// console.log(fibonacci(4));       // 3
+// console.log(fibonacci(20));       // 6765
+// console.log(fibonacci(50));       // 12586269025
+// console.log(fibonacci(75));       // 2111485077978050
+
+///////////////////////////////////////////////////////////////////////////////
+// Fibonacci Numbers (Memoization)
+// Our recursive fibonacci function from an earlier exercise isn't very
+// efficient. It starts slowing down with an nth argument value as low as
+// 35. One way to improve the performance of our recursive fibonacci function
+// (and other recursive functions) is to use memoization.
+
+// Memoization is an approach that involves saving a computed answer for future
+// reuse, instead of computing it from scratch every time it is needed. In the
+// case of our recursive fibonacci function, using memoization saves calls to
+// fibonacci(nth - 2) because the necessary values have already been computed
+// by the recursive calls to fibonacci(nth - 1).
+
+// For this exercise, your objective is to refactor the recursive fibonacci
+// function to use memoization.
+
+///////////////////////////////////////////////////////////////////////////////
+
+lineBreak();
+
+let fibonacciMemo = {};
+
+function fibonacci(n) {
+  if (n <= 2) return 1;
+  if (fibonacciMemo[n]) {
+    return fibonacciMemo[n];
+  } else {
+    fibonacciMemo[n] = fibonacci(n - 1) + fibonacci(n - 2);
+    return fibonacciMemo[n];
+  }
+}
+
+
+console.log(fibonacci(1));       // 1
+console.log(fibonacci(2));       // 1
+console.log(fibonacci(3));       // 2
+console.log(fibonacci(4));       // 3
+console.log(fibonacci(5));       // 5
+console.log(fibonacci(12));      // 144
+console.log(fibonacci(20));      // 6765
+console.log(fibonacci(39));      // 63245986
+console.log(fibonacci(1000));    // 4.346655768693743e+208
+
