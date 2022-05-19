@@ -15,7 +15,7 @@ let operation = {
   },
   POP: function() { // I don't like this one. Too much going on. Could probably
                     // Define another pop function apart from this one
-                    // that would house the error
+                    // that would house testing for the error
     if (stack.length === 0) {
       console.log('Error: stack is empty');
     } else {
@@ -44,6 +44,7 @@ let operation = {
 };
 
 
+// eslint-disable-next-line no-unused-vars
 function minilang(string) {
   let commands = string.split(" ");
   commands.forEach(token => {

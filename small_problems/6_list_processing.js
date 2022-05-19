@@ -755,18 +755,3 @@ console.log(isItemAvailable(103, transactions));     // false
 console.log(isItemAvailable(105, transactions));     // true
 
 ///////////////////////////////////////////////////////////////////////////////
-
-// quiz notes
-
-/**
- * Input: Number
- * Output: Array
- *
- * Explicit requirements:
- *    Result is an array of numbers
- *    Elements of the result are positive integers that are less than than the
- *      number
- *    lessThan(5) -> [1, 2, 3, 4]
- *    lessThan(1) -> []
- *
- */
