@@ -166,3 +166,184 @@ function wordToDigit(string) {
 }
 console.log(wordToDigit('Please call me at five five five one two three four. Thanks.'));
 // "Please call me at 5 5 5 1 2 3 4. Thanks."
+
+// Fibonacci Procedural
+
+/**
+ * Input: Number (n)
+ * Output: Number (the nth Fibonacci number)
+ * 
+ * Rules
+ * =====
+ * Explicit requirements:
+ * - Take a number, n, that is the place in the Fib sequence
+ * - Return the Fib number at that place in the sequence
+ * - Fibonacci: Sequence of numbers in which each number
+ *   is the sum of the previous two numbers
+ * - Sequence starts with 1, 1 (first and second numbers)
+ *
+ * Implicit requirements:
+ * - Input is always a number
+ * - The number is an integer
+ * - If passed 0, return undefined ( there is no 0th number )
+ * 
+ * 
+ * 
+ * DC + A
+ *    1, 1, 2, 3, 5, 8, 13 ...
+ *    F(1) = 1
+ *    F(2) = 1
+ *    F(3) = 2
+ *    F(4) = 3
+ *    . . . .
+ *
+ * F(5)
+ * 1 1
+ * New right num is 2
+ * 1 2
+ * New right num is 3
+ * 2 3
+ * New right num is 5
+ * 3 5
+ * 
+ * Given a number (place)
+ * If the number is 1 or 2
+ *   return 1
+ * Declare leftFibNum, initialize to 1
+ * Declare rightFibNum, initialize to 1
+ * Declare counter, initialized to 3
+ * Start to loop, end with counter is === place
+ *  - declare sum, sum left and right fib numbers
+ *  - Reassign left num to right num
+ *  - Reassign right num to the sum
+ *  - increment counter by 1
+ * Repeat the loop 
+ * Return rightFibNum
+ */
+
+ function fibonacci(place) {
+  if (place <= 2) return 1;
+
+  let leftNum = 1;
+  let rightNum = 1;
+
+  for (let counter = 3; counter <= place; counter++) {
+    [leftNum, rightNum] = [rightNum, leftNum + rightNum];
+  }
+
+  return rightNum;
+}
+
+ console.log(fibonacci(20));       // 6765
+ console.log(fibonacci(50));       // 12586269025
+ console.log(fibonacci(75));       // 2111485077978050
+ console.log(fibonacci(80));       // 2111485077978050
+
+// ROT13
+// https://www.codewars.com/kata/52223df9e8f98c7aa7000062/train/javascript
+
+/**
+ * Input: String
+ * Output: String
+ * 
+ * Rules
+ * =====
+ * Explicit requirements
+ * - ROT13: Replaces a letter with the 13th letter after it
+ *   in the alphabet
+ *      A -> N
+ *      L = Y
+ *
+ * - The inverse of the rule is also true. If we are on the
+ *   14th char of the alphabet, its code is 13 chars before
+ *   it
+ *      N -> A
+ *
+ * - Take a string and return a string the alphabetical
+ *   characters substituted with their code
+ * - Characters of interest are alphabetical only
+ * - 
+ * Implicit requirements
+ * - Inputs that are Empty strings return empty strings
+ * - Inputs without any alphabetical chars returned as is
+ * - Input will always be a string
+ * - Case is preserved across the original char and the code
+ *
+ * DC + A
+ * abc -> pon
+ * a B z -> n O m (case preserved)
+ * ?!? -> ?!?
+ *
+ * We can use the UTF code table rather than building a dict
+ *
+ * A is 65; N is 78; Z is 90
+ * a is 97; n is 110 ; z is 122
+ *
+ * Given a string
+ * Declare arrayChars initialize to the string split to chars
+ * Declare a result, and assign it to the map result below
+ * Iterate over the characters in the array, transforming them
+ * - If the char is not alphabetical, return the char
+ * - If the character is upperCased
+ *     - Lowercase the character
+ *     - Rotate by13
+ *     - Uppercase the character, and return
+ * - If the char is lowercased
+ *     - Rotate by 13
+ *     - return the character
+ * Join the result by character 
+ * 
+ * RotateBy13
+ * - Given a character (must be lowercased)
+ * - Declare code, initialize to charCodeAt 
+ * - If the char code is < 78
+ *   - Add 13 to the charcode
+ * - else if the code is >= 78
+ *   - subtract 13 to the charCode
+ *
+ * isNotAlphabetical
+ * - given a character
+ * - test against /[^a-z]/i
+ *
+ */
+//> String.fromCharCode('a'.charCodeAt() + 13)
+//  'n'
+//  > String.fromCharCode('N'.charCodeAt() - 13)
+//  'A'
+
+function rot13(string) {
+  let arrChars = string.split("");
+  let result = arrChars.map(char => {
+    if (isSpecialChar(char)) return char;
+    
+    if (char === char.toUpperCase()) {
+      return rotateChar(char.toLowerCase()).toUpperCase();
+    } else {
+      return rotateChar(char);
+    }
+  })
+
+  return result.join("");
+}
+
+function rotateChar(char) { // takes lowercased chars only
+  let code = char.charCodeAt();
+  code += code < 110 ? 13 : -13; 
+
+  return String.fromCharCode(code);
+}
+
+function isSpecialChar(char) {
+  return /[^a-z]/i.test(char);
+}
+
+console.log(rotateChar('a'))
+console.log(rotateChar('n'))
+
+
+console.log(isSpecialChar('a'))
+
+console.log(rot13("EBG13 rknzcyr."))
+
+console.log(rot13("@$#@(*$(@ ))."))
+console.log(rot13("This is my first ROT13 excercise!"))
