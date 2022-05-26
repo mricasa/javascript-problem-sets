@@ -1,0 +1,25 @@
+let fish = 'tuna'
+
+function catchOfTheDay() {
+  return (`Caught a ${fish}`)
+}
+
+while (true) {
+  fish = 'salmon'; // reassignment of the global variable
+  for (let fish = 'mackerel';;) { // Variable shadowing 
+    console.log(`This local variable shadows the global: ${fish}`); 
+                                                          //=> mackerel
+    console.log(`But the function will use the global: ${catchOfTheDay()}`) 
+                                                          //=> Caught a salmon
+    break;
+  }
+  break;
+}
+
+
+
+let jake = [1, 2, 3, 4, 5]
+
+jake.forEach(element => {
+  console.log('hey what is going on with you?');
+})
