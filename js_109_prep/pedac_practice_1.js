@@ -347,3 +347,83 @@ console.log(rot13("EBG13 rknzcyr."))
 
 console.log(rot13("@$#@(*$(@ ))."))
 console.log(rot13("This is my first ROT13 excercise!"))
+
+/** Count letters in a string
+ * Input: String
+ * Output: Hash
+ *
+ * Rules
+ * =====
+ * Explicit requirements:
+ * - Count lowercase characters
+ * - Returns an object
+ *  - Keys are the letter character
+ *  - VaLues are the count
+ * 
+ * Implicit requirements:
+ * - Input will always be a string
+ * - If an empty string, return an empty object?
+ * - If non-alphabetic character, do not count
+ * - Assuming all strings will be a single word, no whitespace, and
+ *    no special characters
+ * - Appears that keys are sortted alphabetically
+ *
+ * DC + A
+ * "abc"
+ * {a: 1, b: 1, c: 1}
+ * 
+ * "AbCddd"
+ * {b: 1, d: 3}
+ *
+ * Alg
+ * ===
+ * Given a string
+ * Declare a countObj and initialize to an empty object
+ * Declare charArray, initialize to result of spliting string into chars
+ * Iterate over charArray passing each character
+ *  - If the character is lowercase
+ *    - Is the character a key in object?
+ *      - If no: Create key for the char, and initialize to 1
+ *      - If yes: Increment value count at key by 1
+ * END loop when all characters are processed
+ * Return the empty object
+ *
+ */
+
+// function letterCount(string) {
+//   let count = {};
+//   let charArray = string.split("");
+
+//   charArray.forEach(char => {
+//     if (char !== char.toLowerCase()) return;
+  
+//     count[char] = count[char] || 0;
+//     count[char] += 1;
+
+//   })
+//   return count;
+// }
+
+
+
+function letterCount(string) {
+  return string.split("").reduce((obj, char) => {
+    obj[char] = obj[char] || 0;
+    obj[char] += 1;
+    return obj;
+  }, {});
+}
+
+// Ternary is also quite nice
+// const letterCount = s => s
+//   .split('')
+//   .reduce((accum, value) => {
+//     accum[value] = accum[value] ? accum[value] + 1 : 1
+//     return accum
+//   }, {})
+
+console.log(letterCount("codewars")); //, {"a": 1, "c": 1, "d": 1, "e": 1, "o": 1, "r": 1, "s": 1, "w": 1});
+console.log(letterCount("activity")); //, {"a": 1, "c": 1, "i": 2, "t": 2, "v": 1, "y": 1});
+console.log(letterCount("arithmetics")); //, {"a": 1, "c": 1, "e": 1, "h": 1, "i": 2, "m": 1, "r": 1, "s": 1, "t": 2});
+console.log(letterCount("traveller")); //, {"a": 1, "e": 2, "l": 2, "r": 2, "t": 1, "v": 1});
+console.log(letterCount("daydreamer")); //, {"a": 2, "d": 2, "e": 2, "m": 1, "r": 2, "y": 1});
