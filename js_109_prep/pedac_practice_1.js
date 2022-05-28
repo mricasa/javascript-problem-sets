@@ -427,3 +427,182 @@ console.log(letterCount("activity")); //, {"a": 1, "c": 1, "i": 2, "t": 2, "v": 
 console.log(letterCount("arithmetics")); //, {"a": 1, "c": 1, "e": 1, "h": 1, "i": 2, "m": 1, "r": 1, "s": 1, "t": 2});
 console.log(letterCount("traveller")); //, {"a": 1, "e": 2, "l": 2, "r": 2, "t": 1, "v": 1});
 console.log(letterCount("daydreamer")); //, {"a": 2, "d": 2, "e": 2, "m": 1, "r": 2, "y": 1});
+
+
+///////////////////
+
+
+///////////////////
+
+
+/**
+ * Input: String
+ * Output: String
+ * 
+ * Rules
+ * =====
+ * Return string where:
+ * - First and last chars remain in orginal place
+ * - chars between are sorted alphabetically
+ * - Punctuation remains at the same place as it
+ *    started
+ * 
+ *
+ * Assumptions:
+ * - Words are separated by single spaces
+ * - only spaces separate words, special chars 
+ *   do not (tik)
+ * - Puntuation is limited to:
+ *      - ' , .
+ * - Ignore capitalization
+ * - One character strings are returned as is
+ * - Two char strings are returned as is
+ * - Must handle a full sentence (the chars of
+ *    each word are sorted; not of the
+ *      whole sentence)
+ *
+ * DC + A
+ * ======
+ * "i" -> "i"
+ * "me" -> "me"
+ *
+ * you've
+ * -dcba -> -dbca (if special char at start, it is ignored, and we still lock the first alphabetical char)
+ *
+ * -dcba (edge case, special char starts)
+ * -, d, c, b, a
+ * [-] ; [d] ; [c, b] ; [a]
+ *
+ * 'card-carrying' -> caac-dinrrryg
+ * Find the first and last LETTER of the word
+ * 
+ * Then identify the chars in the middle of
+ * the word.
+ *    [c], [caac] [-] [dinrrry] [g]
+ * 
+ * Save the index location of the special character (splice it in later)
+ *
+ * join the letters that are alphabetical
+ * [c], [caacdinrrry] [-] [g]
+ * 
+ * sort them
+ * [c], [aacdinrrry] [-] [g]
+ *
+ * join alphabetical words caacdinrrry
+ * 
+ * splice in special character if there is one
+ * caac-dinrrry
+ *
+ * Alg
+ * ===
+ * Given a string / sentence
+ * declare result
+ * If sentence, iterate over each word, transform each word
+ * - call the scrambler per word
+ * - return the result of the scrambled word
+ * Join the resulting transformed words and assign to result 
+ *
+ * else: it's a single word
+ *  - call scrambler
+ *  - assign to result
+ * 
+ * return resul
+ *
+ * Scrambler
+ * - given a word
+ * - Split the word into characters
+ * - Declare middleChars, initialize to empty array
+ * - Declare specialChars = initialize to empty array (will be [idx, char])
+ * - Declare firstLetter
+ * - Declare lastLetter
+ * - Iterate over each character with index
+ *   - If character is not alphabetical, add it to spcecialChars with idx
+ *   - If character is alphabetical AND firstLetter is falsy
+ *        Assign the character to firstLetter
+ *   - Else, add each character to the middleChars
+ * - Loop ends
+ * - pop the end of middleChars and assign to lastLetter
+ * - Sort middleChars
+ * - unshift first character, push last character to middleChars
+ * - For each in special chars
+ *    - Insert specialChars at respective location of middleChars using idx
+ * - return middleChars joned together as a string
+ *
+ * caac-ds
+ * c aacd s
+ * [4, "-"]
+ * .splice(4, 0, "-")
+ * caac-ds
+ * 
+ */
+
+ function ScrambleWords(sentence) {
+  return sentence.split(" ").map(word => {
+    return scramble(word);
+  }).join(" ")
+}
+
+function scramble(word) {
+  if (word.length <= 2) return word;
+
+  let charArr = word.split("");
+  let midChars = [];
+  let firstChar;
+  let lastChar;
+  let specials = [];
+
+  for (let idx = 0; idx < charArr.length; idx++) {
+    let char = charArr[idx];
+
+    if (/[^a-z]/.test(char)) {
+      specials.push([idx, char]);
+      continue;
+    }
+
+    if (!firstChar) {
+      firstChar = [char];
+      continue;
+    };
+
+    midChars.push(char)
+  }
+  lastChar = [midChars.pop()];
+  midChars.sort();
+  
+  let result = firstChar.concat(midChars, lastChar);
+
+  specials.forEach(([idx, element]) => result.splice(idx, 0, element));
+  return result.join("");
+}
+
+console.log(scramble('!'))
+
+console.log(ScrambleWords('professionals'))
+
+// , 'paefilnoorsss', 'The first and last letters of a word should reamin in place with the inner letters sorted')
+
+console.log(ScrambleWords('i'))
+
+// , 'i', 'Must handle single charater words')
+console.log(ScrambleWords('me'))
+
+// , 'me', 'Must handle 2 charater words')
+console.log(ScrambleWords('you'))
+
+// , 'you', 'Must handle 3 charater words')
+console.log(ScrambleWords('card-carrying'))
+// , 'caac-dinrrryg', 'Only spaces separate words and punctuation should remain at the same place as it started')
+console.log(ScrambleWords("shan't"))
+
+// , "sahn't", 'Punctuation should remain at the same place as it started')
+console.log(ScrambleWords('-dcba'))
+
+// , '-dbca', 'Must handle special character at the start')
+console.log(ScrambleWords('dcba.'))
+
+// , 'dbca.', 'Must handle special character at the end')
+
+console.log(ScrambleWords("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth."));
+
+// ), "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth.", 'Must handle a full sentence')
+//   })
