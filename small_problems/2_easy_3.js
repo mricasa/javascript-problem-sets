@@ -438,7 +438,6 @@ equality)
 
 ///////////////////////////////////////////////////////////////////////////////
 /*
-SKIPPED: NEED REGEX
 
 Clean up the words
 Given a string that consists of some words and an assortment of non-alphabetic
@@ -447,6 +446,54 @@ non-alphabetic characters replaced by spaces. If one or more non-alphabetic
 characters occur in a row, you should only have one space in the result (i.e.,
   the result string should never have consecutive spaces).
 */
+
+/**
+ * Input: String
+ * Output: String
+ * 
+ * Rules
+ * =====
+ * - String consists of words and an assortment of non-alphabetic chars
+ * - Return string with all non-alphabetical chars replaced by spaces
+ * - If one or more non-alpha chars in a row, only have one space
+ *     a$$a => a a
+ *
+ * Implicit requirements
+ * - Spaces are non alphabetic
+ * - Consecutive spaces replaced with one space
+ * - the non alphabetic chars in a row do not need to be the same chars
+ *
+ * Given a string
+ * Declare a result, intitializing to empty string
+ * Iterate over characters
+ *    - If the character is alphabetical, add it to the result
+ *    - Else:
+ *     - If the last character was a space, continue to the next char
+ *     - Otherwise, Add a space
+ * Return result
+ */
+
+// function cleanUp(string) {
+//   let result = "";
+
+//   for (let idx = 0; idx < string.length; idx++) {
+//     let currentChar = string[idx];
+    
+//     if (/[a-z]/i.test(currentChar)) {
+//       result += currentChar;
+//     } else {
+//       if (result[result.length - 1] === " ") continue;
+//       result += " "}
+//   }
+
+//   return result;
+// }
+
+function cleanUp(string) {
+  return string.replace(/[^a-z]/gi, " ").replace(/\s+/gi, " ");
+}
+
+console.log(cleanUp("---what's my +*& line?"));    // " what s my line "
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -20,49 +20,7 @@ instead, use a series of method calls to perform the sum. */
 // console.log(sum(496));          // 19
 // console.log(sum(123456789));    // 45
 
-///////////////////////////////////////////////////////////////////////////////
-/**
- * Alphabetical Numbers
-Write a function that takes an array of integers between 0 and 19 and returns
-an array of those integers sorted based on the English word for each number:
 
-zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven,
-twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
-
-Example:
-
-
- */
-///////////////////////////////////////////////////////////////////////////////
-
-let vals = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-
-let toWord = {};
-
-for (let [index, element] of vals.entries()) {
-  toWord[index] = element;
-}
-
-let toNumber = Object.fromEntries(Object.entries(toWord).map((entry) => {
-  return [entry[1], entry[0]];
-}));
-
-console.log(toWord["2"]);
-console.log(toWord["0"]);
-console.log(toNumber['eighteen']);
-
-function alphabeticNumberSort(numberList) {
-  return numberList.map((number) => toWord[number]).sort().map(word => {
-    return toNumber[word];
-  });
-}
-
-console.log(alphabeticNumberSort(
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]));
-// [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
-
-// Good job lol. but you will need to redo this once you learn sort
-// Need to hit the course content at this point.
 
 ///////////////////////////////////////////////////////////////////////////////
 // Multiply All Pairs
@@ -755,3 +713,134 @@ console.log(isItemAvailable(103, transactions));     // false
 console.log(isItemAvailable(105, transactions));     // true
 
 ///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * Alphabetical Numbers
+Write a function that takes an array of integers between 0 and 19 and returns
+an array of those integers sorted based on the English word for each number:
+
+zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven,
+twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+ */
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Input: Array of numbers
+ * Output: Array of numbers
+ *
+ * Rules
+ * =====
+ * Explciit req:
+ * - Sort an array of integers alphabetically based on their English word
+ * - zero, one, two, three, four, five, six...
+ *
+ * Implicit req:
+ * - Numbers will not exceed an integer value of 20
+ * - Input will always be valid (not an empty array, no non-number elements,
+ *     no out of range numbers)
+ * - We can return a new array
+ *
+ * Declare numberWords and intitalize it to an object
+ *   hardcode properties: keys are 0 to 19, values are numbers as words
+ *
+ * Given an array of number values
+ * Make a copy of the array
+ * Call sort on the array copy
+ * - Per compared element, convert them to a string, use the key to reference the
+ *     word value in the numberWords object
+ * - sort in ascending order
+ * Return the sorted array
+ * 
+ */
+
+//  const NUM_WORDS = {
+//   0: "zero",
+//   1: "one",
+//   2: "two",
+//   3: "three",
+//   4: "four",
+//   5: "five",
+//   6: "six",
+//   7: "seven",
+//   8: "eight",
+//   9: "nine",
+//   10: "ten",
+//   11: 'eleven',
+//   12: 'twelve',
+//   13: 'thirteen',
+//   14: 'fourteen',
+//   15: 'fifteen',
+//   16: 'sixteen',
+//   17: 'seventeen',
+//   18: 'eighteen',
+//   19: 'nineteen'
+// }
+
+// function alphabeticNumberSort(numbers) {
+//   let numCopy = numbers.slice();
+
+//   return numCopy.sort((a, b) => {
+//     a = NUM_WORDS[a];
+//     b = NUM_WORDS[b];
+
+//     if (a < b) return -1;
+//     else if (a > b) return 1;
+//     else return 0;
+//   })
+// }
+
+//  console.log(alphabeticNumberSort(
+//   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]));
+// // [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
+
+
+// ls example extracts the anonymous callback to another function that will be
+// passed as a call back later.
+
+
+// const NUM_WORDS = {
+//   0: "zero",
+//   1: "one",
+//   2: "two",
+//   3: "three",
+//   4: "four",
+//   5: "five",
+//   6: "six",
+//   7: "seven",
+//   8: "eight",
+//   9: "nine",
+//   10: "ten",
+//   11: 'eleven',
+//   12: 'twelve',
+//   13: 'thirteen',
+//   14: 'fourteen',
+//   15: 'fifteen',
+//   16: 'sixteen',
+//   17: 'seventeen',
+//   18: 'eighteen',
+//   19: 'nineteen'
+// }
+
+// let wordSort = (a, b) => {
+//   a = NUM_WORDS[a];
+//   b = NUM_WORDS[b];
+
+//   if (a < b) return -1;
+//   else if (a > b) return 1;
+//   else return 0;
+// }
+
+// function alphabeticNumberSort(numbers) {
+//   return [...numbers].sort(wordSort);
+// }
+
+//  console.log(alphabeticNumberSort(
+//   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]));
+// // [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
+
+
+

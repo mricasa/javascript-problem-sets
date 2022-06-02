@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mricasa/js101#readme",
   "dependencies": {
+    "fraction.js": "github:infusion/Fraction.js",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {

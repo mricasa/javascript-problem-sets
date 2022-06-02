@@ -148,3 +148,96 @@ console.log(longestConsec(["it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"], 15) ==
 console.log(longestConsec(["it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"], 0) === ""); // true
 
 for (let counter = 0; counter <= 10; counter++) console.log(counter);
+
+
+// Extract the domain name from a URL
+
+// Write a function that when given a URL as a string, parses out just the domain name and returns it as a string.
+
+/**
+ * Input: string
+ * Output: string
+ *
+ * Rules
+ * =====
+ * Explicit Req
+ * - We will be passed a URL as a string
+ * - Parse out just the domain name
+ * - Return the domain name as a string
+ * 
+ * Implicit Req
+ * - Input will always be a string
+ * - Input will always be a URL
+ * - URL may or not begin with https
+ * - URL may or not contain www
+ * - URL may end in .com, .co, or any other suffix
+ * - Input will not be an empty string
+ * - The only syntactical symbols of URL are
+ *    - ( . / : // )
+ * - Other symbols may appear in the domain name
+ *
+ * DC + A
+ * ======
+ * Prefixes: http://, https://, www., 
+ *           http://www., https://www.,
+ * Suffixes: .com, .co.jp, .net, .ru, etc.
+ *           Cannot list all
+ *
+ * www.xakep.ru
+ * www.  xakep  .ru
+ *
+ * http://google.com
+ * http://  google  .com
+ *
+ * http://www.cnet.com
+ * http://  www.  cnet  .com
+ *
+ * A URL prefix is
+ * - http://
+ * - https://
+ * - www.
+ * - http://www.
+ * - https://www.
+ *
+ * Assume that the domain name always directly follows
+ * the prefix?
+ *
+ * Domain names never have the special chars within them
+ *  ( . / : )
+ *
+ * We will not need to preserve punctuation
+ * 
+ * Alg
+ * ===
+ * Create an array containing all patterns that we want to
+ *  negate
+ * 
+ * Declare workingString, init to the argument string
+ * Iterate over the array of patterns
+ *   - On workingString, Replace matched patterns with an
+ *      empty string
+ *   - This should elimnate the prefixes
+ * END
+ * 
+ * Split workingString on "."
+ * Return the first element of the resulting array
+ * 
+*/
+
+function domainName(url){
+  const prefixes = [/http:\/\//g, /https:\/\//g, /www./g ];
+
+  prefixes.forEach(prefix => {
+    url = url.replace(prefix, "");
+  })
+
+  return url.split(".").shift();
+}
+
+console.log(domainName("http://google.com")) //"google");
+console.log(domainName("http://google.co.jp")) //"google");
+console.log(domainName("www.xakep.ru")) //"xakep");
+console.log(domainName("https://youtube.com")) //"youtube");
+
+console.log(domainName("http://github.com/carbonfive/raygun")); 
+//-> domain name = "github"

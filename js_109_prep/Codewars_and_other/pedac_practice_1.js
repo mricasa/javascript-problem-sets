@@ -606,3 +606,78 @@ console.log(ScrambleWords("you've gotta dance like there's nobody watching, love
 
 // ), "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth.", 'Must handle a full sentence')
 //   })
+
+//  Detect Pangram
+
+/**
+ * Input: string
+ * Output: boolean
+ * 
+ * Rules
+ * =====
+ * Explicit req
+ * - Pangram is a sentence that contains every single letter
+ *   of the alphabet at least once
+ * - Case is not relevant
+ * - Ignore numbers, ignore punctuation
+ * 
+ * Implicit req
+ * - Valid inputs? Is a string always?
+ * - Will not be an empty string?
+ *
+ * DC + A
+ * ======
+ * Create an array of all letters (lowercase is fine)
+ * Given a string
+ * Declare charArray, intiialize to string split into chars
+ * Iterate over charArray, passing characters
+ * - declare char to lowercase of passed character
+ * - declare idxChar as the result of finding the idx of
+ *    that character in our array of letters
+ * - if there is an index
+ *   - Splice out the letter at that index
+ * - else
+ *   - continue
+ * END when all the entire charArray has been passed
+ *
+ * return the negation of the array of all letters
+ *   ( if our letterArr empty, it's a pangram ; 
+ *      otherwise, it's not a pangram)
+ *
+ * ALTERNATIVE
+ * Given a string
+ * declare an lettersObject
+ * Declare a charArray, init to string split into chars
+ * Iterate over the array of chars, passing char:
+ * - if the character is alphabetical
+ *   - Lower case the character
+ *   - Use character as a key in lettersObject
+ *   - Create key (or re-assign existing key) and assign to true
+ * END when we have iterated over all characters in char
+ * array
+ *
+ * Retrieve the keys from letters object as array
+ * If the length of the key array is 26, return true
+ *    else false
+ */
+
+
+ function isPangram(string){
+  let lettersObject = {};
+  let charArray = string.split("");
+
+  for (let idx = 0; idx < charArray.length; idx++) {
+    let char = charArray[idx].toLowerCase();
+    if (/[a-z]/.test(char)) lettersObject[char] = true;
+  }
+
+  let numKeys = Object.keys(lettersObject).length;
+  return numKeys === 26;
+}
+
+
+console.log(isPangram("The quick brown fox jumps over the lazy dog."));
+// true
+
+console.log(isPangram("This is not a pangram."));
+//false
