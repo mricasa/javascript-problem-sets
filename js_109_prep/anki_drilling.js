@@ -437,3 +437,82 @@ Filter will examine the truthiness of the callback's return value
 //   marrow: { type: 'vegetable', colors: ['green'], size: 'large' },
 // };
 
+/*
+The for loop is more succinct than the while loop since we are able to write out our loop initialization, loop test condition, and iteration statement (incrementation) all on one line. The built in logic of the for loop statement takes care of using all those components at the right time.
+
+
+// WHat will be returned?
+> let arr = []
+> arr.length = 3
+> arr[1] = 3
+> arr.forEach(element => console.log(element))
+
+On 448 we invoke forEach on arr.
+Arr was a local var declared on 445, intiialized to an empty array, and on 446 we changed the array's length property to 3. Afterwards, we initialized the element at index 1 to 3. That means that the value of the array was
+
+[<1 empty item>, 3, <1 empty item>]
+Before we invoked forEach.
+
+Technically, if we are asking about what is returned, we know that forEach always returns undefined.
+
+We should, however, also note that the output of this code is the string representation of '3', which is printed by the console.log invocation in the body of forEach's callback.
+
+This latter point highlights the fact that many array methods do not iterate over non-elements (i.e., the empty items of arr.)
+*/
+
+
+// let arr = []
+// arr.length = 3
+// arr[1] = 3
+// arr.forEach(element => console.log(element))
+
+// What will be printed?
+// let animals = { a: 'ant', b: 'bear', c: 'cat' };
+
+// Object.values(animals).some(value => {
+//   console.log(value);
+//   value.length === 4;
+// }); 
+
+/*
+We are calling the array method some on the return value of the static method Object.values, which is an array of values ('ant', 'bear', 'cat').
+
+Some takes a callback as an argument, and loops through each element in its array of values.
+
+On each iteration, the value is printed. In this scenario, "ant"
+"bear"
+"cat"
+
+will be printed.
+
+We would expect only "ant" and "bear" to be printed  according to the intended behavior of the method some. (It will stop execution and return true as soon as the callback returns true for any element).
+
+Notice, however, that there is no return statement on line 474. This means that the return value for each iteration through the values is undefined, which is a falsy value.
+
+The principle on demonstration here is the importance of a the explicit return value. If we do not use a return statement within a function, that function will by default return undefined.
+
+
+To arrange elements in order, we use sort. Sort is an array method that accepts a callback as an argument, and it loops over the elements of the array, passing pairs as arguments to its callback on each iteration.
+
+On each iteration there is a comparison between the two elements. Each outcome of a comparison will return a value that is returned by the callback to sort. SOrt then uses this to rearrange the order of elements, and the iterations will continue until the final arrangement is achieved.
+
+Note that if you call sort without a callback, its default behavior is to convert the callback arguments to strings and then compare arguments lexicographically
+
+So for instance
+Although we might expect 
+
+100 1 10.sort() -> 1 10 100
+To have been sorted numerically,
+the inner mechanism was actually that of
+comparing them as strings (sorting by
+utf 16 table position)
+
+oh yea... it mutates the caller as well.
+
+
+During the PEDAC process, we can verify our assumptions by asking questions, examining any test cases provided . .. .
+
+
+
+*/
+
