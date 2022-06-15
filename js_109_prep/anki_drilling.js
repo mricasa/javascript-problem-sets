@@ -171,13 +171,14 @@
 // console.log(pocketMonsters); //=> Expected: ['squirtle', 'charmander', 'bulbasaur']
 
 
-// // let pocketMonsters = [ 'bulbasaur', 'squirtle', 'charmander'];
-// // pocketMonsters.sort((a, b) => {
-// //   if (a < b) return 1;
-// //   else if (a > b) return -1;
-// //   else return 0;
-// // });
-// // console.log(pocketMonsters); //=> Expected: ['squirtle', 'charmander', 'bulbasaur']
+// // Solution:
+// let pocketMonsters = [ 'bulbasaur', 'squirtle', 'charmander'];
+// pocketMonsters.sort((a, b) => {
+//   if (a < b) return 1;
+//   else if (a > b) return -1;
+//   else return 0;
+// });
+// console.log(pocketMonsters); //=> ['squirtle', 'charmander', 'bulbasaur']
 
 
 // Given the following data structure, write some code to return an array which contains only the objects where all the numbers are even.
