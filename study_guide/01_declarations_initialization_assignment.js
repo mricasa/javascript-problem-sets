@@ -10,7 +10,7 @@ let foo = 1;
 
 // There are three declaration keywords, let, const, and var. We limit our
 // use, however, to the first two-- let and const -- which declare block-scoped
-// variables (variables declared with var have global scope.)
+// /ariables (variables declared with var have global scope.)
 
 // The const is distinct from let in that once assigned, it cannot be re-assigned.
 // But keep in mind that object properties can be changed even when that object

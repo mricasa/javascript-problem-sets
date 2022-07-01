@@ -15,7 +15,7 @@
  * There are two different types of scope in JS: global and local.
  *
  * Variables that are declared in main (in other words: any place that is
- * not a block or a function), have global scope. That is, they can be
+ * not a block or a function), have global scope. That is, they can bex
  * accessed by any part of the program.
  *
  * Variables that are declared in function or block scope, however, follow
