@@ -1,0 +1,128 @@
+// incomplete but likely to be good enough. 
+
+const readline = require('readline-sync');
+
+const CONSTANTS = {
+  EMPTY_SQUARE: " ",
+  HUMAN_MARKER: "X",
+  COMPUTER_MARKER: "O",
+  WINNING_LINES: [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [3, 5, 7]
+  ]
+
+}
+
+const Square = {
+  init(marker = CONSTANTS.EMPTY_SQUARE) {
+    this.marker = marker
+    return this;
+  },
+
+  isEmpty() {
+    return this.readSquare() === " ";
+  },
+
+  readSquare() {
+    return this.marker;
+  },
+
+  update() {
+    this.marker = marker;
+  },
+
+  toString() {
+    return this.readSquare();
+  },
+}
+
+const Board = {
+  init() {
+    this.grid = {};
+    for (let counter = 1; counter <= 9; counter++) {
+      this.grid[counter] = Object.create(Square);
+    }
+    return this;
+  },
+
+  display() {
+    console.log('');
+    console.log(`     |     |  `);
+    console.log(`  ${this.grid[1]}  |  ${this.grid[2]}  |  ${this.grid[3]}`);
+    console.log(`     |     |  `);
+    console.log(`-----+-----+-----`);
+    console.log(`     |     |  `);
+    console.log(`  ${this.grid[4]}  |  ${this.grid[5]}  |  ${this.grid[6]}`);
+    console.log(`     |     |  `);
+    console.log(`-----+-----+-----`);
+    console.log(`     |     |  `);
+    console.log(`  ${this.grid[7]}  |  ${this.grid[8]}  |  ${this.grid[9]}`);
+    console.log(`     |     |  `);
+  },
+
+  squareAt(coord) {
+    return this.grid[coord].readSquare();
+  },
+
+  placeMarker(coord, marker) {
+    this.grid[coord].update(marker);
+  },
+
+  emptySquares() {
+    return Object.keys(this.grid).filter(coord => {
+      return this.grid[coord].isEmpty();
+    });
+  },
+
+  isFull() {
+    return this.emptySquares().length === 0;
+  },
+}
+
+const Player = {
+  init(marker = null) {
+    this.marker = marker;
+    return this;
+  },
+
+  getMarker() {
+    return this.marker;
+  }
+}
+
+const Human = Object.create(Player);
+Human.init = function() {
+  return Player.init.call(this, CONSTANTS.HUMAN_MARKER);
+}
+
+const Computer = Object.create(Player);
+Computer.init = function() {
+  return Player.init.call(this, CONSTANTS.COMPUTER_MARKER)
+}
+
+const TTTgame = {
+  init() {
+    this.board = Object.create(Board).init();
+    this.human = Object.create(Human).init();
+    this.computer = Object.create(Computer).init();
+    return this;
+  },
+
+  displayWelcome() {
+    console.log('welcome to tic tac toe');
+  },
+
+  humanMove() {
+    let options = this.board.emptySquares();
+    console.log();
+  }
+}
+
+let game = Object.create(TTTgame).init();
+
