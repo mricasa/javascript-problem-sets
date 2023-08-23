@@ -1,2 +1,1 @@
-# js101
-launch school js101 notes and exercises
+javascript exercises, challenges and notes
